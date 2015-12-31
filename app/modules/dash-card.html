@@ -1,0 +1,72 @@
+<dom-module id="dash-card">
+  <template>
+    <style>
+      :host {
+        display: flex;
+        width: calc(40% - 5px);
+        margin: 30px;
+        @apply(--shadow-elevation-3dp);
+        min-height: 180px;
+        color: black;
+        --iron-icon-height: 64px;
+        --iron-icon-width: 64px;
+        text-decoration: none;
+      }
+
+      [main] {
+        @apply(--layout-horizontal);
+        width: 100%;
+      }
+
+      [cardHeader] {
+        @apply(--layout-vertical);
+        /*@apply(--layout-flex);*/
+        width: 150px;
+        @apply(--layout-center-center) color: white;
+        padding: 2px;
+        background-color: var(--cardHeader-background-color, grey);
+      }
+
+      [content] {
+        @apply(--layout-vertical);
+        /*	border: 1px solid yellow;*/
+        width: 100%;
+        @apply(--layout-flex);
+        @apply(--layout-center-center) background-color: white;
+      }
+    </style>
+
+    <div main>
+
+      <div cardHeader>
+        <iron-icon icon="{{icon}}"></iron-icon>
+
+        <span>{{header}}</span>
+      </div>
+
+      <div content class="flex-4">
+
+        <div class="layout horizontal center ">
+          <span>{{content}}</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dash-card',
+      properties: {
+        header: String,
+        icon: String,
+        content: {
+          type: String,
+          notify: true
+        }
+
+      }
+    });
+  </script>
+</dom-module>

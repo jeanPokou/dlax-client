@@ -1,0 +1,127 @@
+<dom-module id="dlax-login">
+    <template>
+        <style>
+        :host {
+            display: block;
+            /*background: url('https://lh5.googleusercontent.com/-Why0w-QFK24/VMSgIzYFnSI/AAAAAAAADxI/mlrgF1Njfg8/w1312-h738/14-88.png');*/
+            width: 100%;
+            height: 100%;
+            @apply(--layout-vertical);
+        }
+
+        [main] {
+            @apply(--layout-vertical);
+            @apply(--layout-center-center);
+            background: url('http://wallpaperspal.com/wp-content/uploads/Blue-Color-Scheme-Material-Design-Wallpaper.jpg');
+        }
+
+        paper-material {
+            @apply(--layout-vertical);
+            margin: 200px auto;
+            @apply(--layout-center-center);
+            min-width: 320px;
+            height: 400px;
+            @apply(--shadow-elevation-5dp);
+            background-color: white;
+        }
+
+        paper-button {
+            /*background-color: var(--dark-primary-color);*/
+            background-color: #B8E6E3;
+            position: relative;
+            top: 50px;
+            min-width: 230px;
+            height: 40px;
+            --paper-button-ink-color: green;
+        }
+
+        paper-input {
+            min-width: 230px;
+            color: gray;
+            font-size: 0.6em;
+        }
+
+        paper-input label {
+            left: 8px;
+        }
+
+        [action] {
+            @apply(--layout-horizontal);
+            /* margin-left: 70%; */
+        }
+
+        [credentials] {
+            @apply(--layout-vertical);
+            @apply(--layout-center-center);
+        }
+        </style>
+        <div main>
+            <paper-material elevation="3" class="login">
+                <div credentials>
+                    <paper-input class="short" label="Email" error-message="Invalid Login" autovalidate require label="email">
+                        <iron-icon icon="perm-identity" prefix></iron-icon>
+                        <!--     <paper-icon-button suffix onclick="clearInput()" icon="clear" alt="clear" title="clear" tabindex="0">
+                    </paper-icon-button> -->
+                    </paper-input>
+                    <paper-input type="password" label="Password" error-message="Invalid Password" autovalidate require label="email">
+                        <iron-icon icon="lock-outline" prefix></iron-icon>
+                        <!--     <paper-icon-button suffix onclick="clearInput()" icon="clear" alt="clear" title="clear" tabindex="0">
+                    </paper-icon-button> -->
+                    </paper-input>
+                </div>
+                <div action>
+                    <paper-button raised id="loginButton"> Login </paper-button>
+                </div>
+            </paper-material>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'dlax-login',
+        properties: {
+            animationConfig: {
+                value: function() {
+                    return {
+                        'entry': [{
+                            name: 'slide-down-animation',
+                            node: this,
+                            timing: {
+                                duration: 2000,
+
+                            }
+                        }, {
+                            name: 'fade-in-animation',
+                            node: this,
+                            timing: {
+                                delay: 1000,
+                                duration: 1000
+                            }
+                        }],
+
+                        'exit': [{
+                            name: 'hero-animation',
+                            id: 'hero',
+                            fromPage: this,
+                            timing: {
+                                duration: 1000
+                            }
+                        }, {
+                            name: 'fade-out-animation',
+                            node: this
+                        }]
+
+                    };
+                }
+            },
+            sharedElements: {
+                value: function() {
+                    return {
+                        'hero': this.$.loginButton
+                    };
+                }
+            }
+        },
+        behaviors: [Polymer.NeonSharedElementAnimatableBehavior]
+    });
+    </script>
+</dom-module>

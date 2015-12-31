@@ -1,0 +1,35 @@
+<dom-module id="settings-view">
+    <template>
+        <style>
+        :host {
+            display: flex;
+            @apply(--layout-vertical);
+            @apply(--layout-center-center);
+
+        }
+        </style>
+        <div class="layout center horizontal">
+
+
+        <paper-input label="Data Base Path " value={{path}}></paper-input>
+
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'settings-view',
+        properties:{
+            path:{
+                type:String,
+                notify:true,
+                observer:'_changedPath'
+            }
+
+        },
+        _changedPath: function() {
+        //     if(DriversApi != null)
+        //   DriversApi.loadDrivers(this.path);
+        }
+    });
+    </script>
+</dom-module>

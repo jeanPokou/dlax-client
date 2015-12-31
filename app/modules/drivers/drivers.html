@@ -1,0 +1,211 @@
+<dom-module id="drivers-x">
+    <template>
+        <style>
+        :host {
+            @apply(--layout-vertical);
+            @apply(--paper-font-body2);
+            /*  margin-top: 51px;*/
+            margin-right: 15px;
+            margin-left: 5px;
+            display: flex;''
+        }
+
+        [main] {
+            width: 100%;
+            @apply(--layout-horizontal);
+            @apply(--layout-wrap);
+            border: 1px solid green;
+            margin: 5px 25px 5px;
+            @apply(--shadow-elevation-3dp);
+            background: var(--paper-grey-180);
+        }
+
+        [driverCard] {
+            @apply(--layout-vertical);
+            @apply(--shadow-elevation-2dp);
+            height: 150px;
+            width: 150px;
+            /*     background-color: var(--paper-grey-500);*/
+            color: black;
+            margin: 10px;
+        }
+
+        .name {
+            margin: 0 auto;
+            position: relative;
+        }
+
+        paper-toolbar {
+            width: 100%;
+            height: 50px;
+            background-color: var(--paper-grey-100);
+            margin: 5px;
+            padding-bottom: 10px;
+            color: gray;
+        }
+
+        [content] {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-center);
+            @apply(--layout-wrap);
+            width: 100%;
+            padding: 0px 3px;
+            margin: 3px;
+            height: auto;
+            border: 1px solid red;
+        }
+
+        paper-toolbar breadcumb {
+            @apply(--layout-flex);
+        }
+
+        [details] {
+            @apply(--layout-vertical);
+        }
+
+        .fab-action {
+            position: fixed;
+            right: 45px;
+            top: 90%;
+        }
+
+        paper-dialog {
+            width: calc(80% - 30px);
+            height: auto;
+        }
+            [breadcumbs]{
+                @apply(--layout-vertical);
+                @apply(--layout-center-center);
+                @apply(--shadow-elevation-2dp);
+                width:100%;
+                height:80px;
+                background:gray;
+            }
+        </style>
+
+            <!--
+                <div breadcumbs>
+                        Hello
+                </div> -->
+
+
+
+
+        <neon-animated-pages id="t" class="flex" attr-for-selected="data-route" selected="{{selected}}" id="drivers-pages" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+            <drivers-dash data-route="driversDash"></drivers-dash>
+            <drivers-list id="driversList" data-route='driversList' drivers-data="{{driversData}}" selected-index={{selectedDriverIndex}}></drivers-list>
+            <driver-profile id="driverProfile" data-route='driverProfile' driver-data="{{_getSelectedDriver(driversData.*,selectedDriverIndex)}}"></driver-profile>
+            <add-driver data-route="addDriver" driver-data="{{_getSelectedDriver(driversData.*,selectedDriverIndex)}}"></add-driver>
+            <driver-documents data-route="driverDocuments" data={{_getSelectedDriver(driversData.*,selectedDriverIndex)}}></driver-documents>
+        </neon-animated-pages>
+        <paper-fab icon="mdi:account-plus" hidden$='{{_compute(selected)}}' class="fab-action" elevation="3" on-click="_addDriver"></paper-fab>
+    </template>
+    <script>
+    Polymer({
+        is: 'drivers-x',
+        properties: {
+            driversData:{
+                    type:Array,
+                    value:[],
+                    notify:true
+            },
+        selectedDriverIndex: {
+                type: Number,
+                notify:true
+
+            },
+            selected: {
+                type: String,
+                value: 'driversList',
+                observer: '_onSelectedChange'
+
+            },
+
+            animationConfig: {
+                value: function() {
+                    return {
+                        'entry': [{
+                            name: 'slide-from-left-animation',
+                            timing: {
+                                duration: 1000
+                            },
+                            node: this
+                        }, {
+                            name: 'fade-in-animation',
+                            timing: {
+                                delay: 500,
+                                duration: 500,
+                            },
+                            node: this
+                        }],
+                        'exit': {
+                            name: 'fade-out-animation',
+                            node: this
+                        }
+                    };
+                }
+            }
+
+        },
+        _getSelectedDriver:function (data,index) {
+        //    console.log(data.base);
+            return data.base[index];
+
+        },
+        _onSelectedChange: function(s) {
+
+                //  this.selectedDriver = this.$.driversList.driversData[this.$.driversList.selectedDriverIndex];
+
+        },
+        _compute: function() {
+            return (this.selected !== 'driversList');
+        },
+        _addDriver: function() {
+            this.selected = 'addDriver';
+
+        },
+
+        ready: function() {
+            //  this.selected = 0;
+            // this.$.selectedDriver = [];
+            // page('/driversList',  function() {
+            //    this.selected = 'driversList';
+            //    console.log('driversList');
+            //  });
+            // page('/driversProfile',  function() {
+            //    this.selected = 'driverProfile';
+            //    console.log('driverProfile');
+            //  });
+        },
+
+        behaviors: [Polymer.NeonAnimationRunnerBehavior]
+
+
+    });
+    </script>
+</dom-module>
+<!-- <div main >
+            <paper-toolbar>
+                <span>{{header}}</span>
+                <span class="flex"></span>
+                <iron-icon icon="av:loop"></iron-icon>
+                <iron-icon icon="more-vert"></iron-icon>
+            </paper-toolbar>
+            <div content>
+                <template is="dom-repeat" items="{{driversData}}" id="driversList">
+                    <div driverCard on-click="viewDriverInfo">
+                        <img src="{{item.avatar}}" alt="" id="{{item.name}}"><span class="name">{{item.name}}</span></div>
+                </template>
+            </div>
+        </div>
+        <array-selector id="selector" items="{{driversData}}" selected="{{selected}}" multi></array-selector>
+        <div main id="viewDriver">
+            <paper-toolbar>
+                <span>{{header}}</span>
+                <span class="flex"></span>
+                <iron-icon icon="arrow-back" on-click="viewDrivers"></iron-icon>
+            </paper-toolbar>
+
+            <driver-profile driver-data="[[selected]]"></driver-profile>
+        </div> -->
+<!-- entry-animation="slide-from-right-animation" exit-animation="slide-left-animation" -->

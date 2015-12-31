@@ -1,0 +1,80 @@
+<dom-module id="driver-card">
+    <template>
+        <style>
+        :host {
+            display: block;
+            text-decoration: none;
+        }
+        [main] {
+            @apply(--layout-vertical);
+            @apply(--shadow-elevation-2dp);
+            height: 180 px;
+            width: 180px;
+            /*     background-color: var(--paper-grey-500);*/
+            color: black;
+            margin: 10px;
+        }
+        [info] {
+            @apply(--layout-vertical);
+            @apply(--layout-center-center);
+            color: black;
+            padding: 2px;
+        }
+        .avatar {
+            width: 180px;
+            height: 150px;
+            /*border-radius: 50%;
+            margin-bottom: 10px;*/
+        }
+        .name {
+            margin: 0 auto;
+            position: relative;
+        }
+        </style>
+        <div main>
+            <!-- <img src="{{data.avatar}}" alt=""> -->
+            <iron-image   class="avatar" placeholder="avatar.jpg"
+sizing="cover" preload src="[[cardData.avatar]]"></iron-image>
+            <div info>
+                <span class="name">{{cardData.firstName}}</span>
+                <span>{{cardData.driverId}}</span>
+                <!-- <span>{{data.Group}}</span> -->
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'driver-card',
+        properties: {
+            cardData: Object,
+             notify:true
+
+                /*avatar: String,
+                name: String*/
+                //, animationConfig: {
+            //     value: function() {
+            //         return {
+            //             'entry': {
+            //                 name: 'hero-animation',
+            //                 id: 'avatar_card',
+            //                 fromPage: document.querySelector('#driversList')
+            //             }
+            //         };
+            //     }
+            // }
+        },
+        ready: function() {
+            // this.animationConfig.entry.fromPage = this.id;
+            // console.log(this.animationConfig.entry.fromPage);
+        },
+        /*,
+                _onClick: function(e) {
+                    this.sharedElements = {
+                        'avatar_card': e.target
+                    };
+                    console.log(e.target);
+                }*/
+        // behaviors: [Polymer.NeonSharedElementAnimatableBehavior]
+    });
+    </script>
+</dom-module>

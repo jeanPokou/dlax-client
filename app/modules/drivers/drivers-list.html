@@ -1,0 +1,537 @@
+
+<dom-module id="drivers-list">
+    <template>
+        <style>
+        :host {
+            /*  @apply(--layout-vertical);
+            @apply(--paper-font-body2);
+            margin-top: 51px;
+            margin-right: 15px;
+            margin-left: 5px;*/
+            --paper-input-container-color: #ccc;
+            --paper-input-container-focus-color: var(--default-primary-color);
+            height: auto;
+        }
+
+        [main] {
+            width: 100%;
+            @apply(--layout-horizontal);
+            @apply(--layout-wrap);
+            /* border: 1px solid green;*/
+            margin: 5px;
+            @apply(--shadow-elevation-3dp);
+            background: var(--paper-grey-100);
+        }
+
+        paper-toolbar {
+            width: 100%;
+            background-color: var(--paper-grey-200);
+            margin: 5px;
+            padding-bottom: 10px;
+            color: gray;
+            /* border: 1px solid green;*/
+            @apply(--layout-center-center);
+        }
+
+        [content] {
+            @apply(--layout-horizontal);
+            /*  @apply(--layout-center-center);*/
+            /*  @apply(--layout-wrap);*/
+            /*width: 100%;*/
+            padding: 0px 3px;
+            margin: 3px;
+            height: auto;
+            /*  border: 1px solid red;*/
+        }
+
+        paper-toolbar breadcumb {
+            @apply(--layout-flex);
+        }
+
+        [details] {
+            @apply(--layout-vertical);
+        }
+
+        .fab-action {
+            position: fixed;
+            right: 60px;
+            top: 90%;
+        }
+
+
+        search {
+            bottom: 5px;
+            margin-right: 2px;
+        }
+
+        iron-list {
+            height: 800px;
+            padding: 16px;
+            color: black;
+            width: 100%;
+        }
+
+        .letter span,
+        {
+            margin-left: 40px;
+        }
+
+        .letter {
+            @apply(--layout-horizontal);
+            width: 100%;
+            border-bottom: 2px solid #ccc;
+            font-size: 1.3em;
+            margin-right: 30px;
+            /*  border-bottom: 2px solid #ccc;*/
+            /*class="layout horizontal" style="width:100%;
+             left:20px;font-size:1.2em"*/
+        }
+
+        .numberOfRecords {
+            @apply(--layout-horizontal);
+            width: 100%;
+            bottom: 10px;
+            color: var(--paper-grey-500);
+            margin-left: 30px;
+            font-size: 1.1em;
+            margin-top: 10px;
+        }
+
+        .numberOfRecords > * {
+            margin-right: 5px;
+        }
+
+        paper-dialog {
+            /*  @apply(--layout-vertical);*/
+            /*width: calc(80% - 30px);
+            height: calc(80% - 30px);
+            background-color:#EDECEC;*/
+            width: 100%;
+            margin-top: 50px;
+        }
+
+        #alphabet {
+            /*     border: 1px solid yellow;*/
+            position: fixed;
+            right: 50px;
+            top: calc(24% - 10px);
+            height: 800px;
+            bottom: 0;
+            font-size: 0.9em;
+        }
+
+        #alphabet a {
+            text-decoration: none;
+            color: var(--paper-grey-500);
+        }
+
+        #alphabet a:visited {
+            color: var(--default-primary-color);
+            ;
+        }
+
+        @media(min-width: 601px) {
+            #alphabet {
+                position: fixed;
+                right: 50px;
+                top: calc(40% - 10px);
+                font-size: 0.9em;
+            }
+        }
+
+        .title{
+            position: relative;
+            font-size: 1.2em;
+            margin-left: 5px;
+
+        }
+
+        </style>
+        <div main id="listDrivers">
+
+            <div class="numberOfRecords">
+            <iron-icon icon="mdi:view-grid"></iron-icon> <span class="title">Drivers list</span>
+            <!-- <i>List Drivers Informations</i> -->
+            </div>
+            <paper-toolbar>
+                <div class="flex">
+                    <paper-input id='searchBar' label="Search" class="search" type="search" value="{{search}}" change="_filterSearch"></paper-input>
+                </div>
+                <paper-dropdown-menu label='By' selected-item-label="{{resultBy}}">
+                    <paper-menu class="dropdown-content" selected='0'>
+
+                        <paper-item>First Name</paper-item>
+                        <paper-item>ID</paper-item>
+                    </paper-menu>
+                </paper-dropdown-menu>
+                <!--   <paper-icon-button icon="mdi:account-search" on-click="showSearch"></paper-icon-button> -->
+                <!--     <paper-icon-button icon="mdi:sort-alphabetical" class="dropdown-trigger"></paper-icon-button> -->
+                <paper-icon-button icon="av:loop"></paper-icon-button>
+                <paper-toggle-button class="blue" checked="{{sortApha}}">
+                    <iron-icon icon="mdi:sort-alphabetical"></iron-icon>
+                </paper-toggle-button>
+            </paper-toolbar>
+            <div class="numberOfRecords" hidden$="true">
+                <iron-icon icon="mdi:account-multiple"></iron-icon>
+                <span >{{recordFound}}</span><i>Record(s)</i> </div>
+            <div content>
+                <!-- horizontal center layout https://api.myjson.com/bins/3c806-->
+                <iron-ajax auto url="http://localhost:3000/drivers" handle-as="json" last-response="{{driversData}}" on-response="_handleResponse"></iron-ajax>
+                <div class="layout horizontal center wrap flex ">
+                    <template is="dom-repeat" items="{{orderDrivers}}" as='drivers'>
+                        <!-- <div class="letter" hidden$="{{_compute(sortApha) }}">
+                            <a name="{{drivers.firstLetter}}"></a><span>{{drivers.firstLetter}}</span></div> -->
+
+                            <div class="letter" hidden$="{{_compute(sortApha) }}">
+                                <a name="{{arrayItem(drivers.*,index,'firstLetter')}}"></a><span>{{drivers.firstLetter}}</span></div>
+
+
+                        <template is="dom-repeat" items="{{drivers.drivers}}" as="item"  id="driversList">
+
+
+                     <driver-card id="{{item.driverId}}" card-data="{{item}}" on-click='_view'></driver-card>
+
+                        </template>
+                    </template>
+                    <!-- <template is="dom-repeat" items="{{driversData}}" as ='drivers'>
+                             <driver-card id="{{drivers.driverId}}" data="{{drivers}}" on-click='_view'></driver-card>
+
+                    </template> -->
+                </div>
+                <div id="alphabet" class=" layout vertical" hidden$="{{_compute(sortApha)}}">
+                    <template is="dom-repeat" items="{{alphabet}}">
+                        <div class='layout horizontal' id$='{{_letterId(item)}}'>
+                            <a href$="{{_urlForItem(item)}}"> <span>{{item}}</span></a>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+
+
+        <iron-media-query query="(min-width: 601px)" query-matches="{{_isMobile}}"></iron-media-query>
+        <iron-media-query query="(min-width: 1280px)" query-matches="{{_isMobile}}"></iron-media-query>
+    </template>
+    <script>
+    Polymer({
+        is: 'drivers-list',
+        properties: {
+            driversData: {
+                type: Array,
+                notify: true,
+                value: function() {
+                    return [];
+                },
+                 observer:'_handleResponse'
+
+            },
+
+            search: {
+                type: String,
+                notify: true,
+                 observer: '_filterSearch',
+                value: ''
+            },
+            header: {
+                type: String,
+                value: 'DRIVERS'
+            },
+
+            selectedIndex: {
+                    type:Number,
+                    notify:true
+            },
+
+
+            searchBarHidden: {
+                type: Boolean,
+                value: function() {
+                    return this.$.searchBar.style.display === 'none';
+                }
+            },
+
+            resultBy: {
+                type: String,
+                value: function () {
+                 return 'ID';
+                },
+                notify: true,
+                observer:'_resetSerch'
+
+            },
+            recordFound:{
+                type:Number,
+                value:0,
+                 notify:true
+                // observer:'_getRecordFound'
+
+
+            },
+
+            orderDrivers: {
+                type: Array,
+                notify: true,
+                value: function() {
+                    return [];
+                }
+
+            },
+
+            sortApha: {
+                type: Boolean,
+                value: function() {
+                    return false;
+                },
+                observer: '_compute'
+            },
+            alphabet: {
+                type: Array,
+                value: function() {
+                    return ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+                }
+            },
+            _isMobile: {
+                type: Boolean,
+                value: true,
+                observer: '_isMobileChanged'
+            }
+
+
+
+        },
+        computeCardData:function (change,index) {
+            return change.base[index]
+        },
+        arrayItem:function(change,index,path){
+        //    console.log(index);
+        return this.get(path,change.base[index])
+        },
+        _resetSerch:function () {
+        this.search='';
+        this._filterSearch();
+        },
+
+        _letterId: function(id) {
+            return '_' + id;
+        },
+
+        _isMobileChanged: function(isMobile) {
+            // console.log('mobile changed' + isMobile);
+
+            for (var i = 1; i < this.alphabet.length; i += 2) {
+                var id = '#_' + this.alphabet[i];
+                if (document.querySelector(id) !== null) {
+                    if (isMobile) {
+                        document.querySelector(id).style.display = 'none';
+                    } else {
+
+                        document.querySelector(id).style.display = 'flex';
+                    }
+
+                    //  document.querySelector(id).innerHTML = '.';
+                }
+
+            }
+
+        },
+
+        _urlForItem: function(i) {
+            return '#' + i;
+        },
+        _compute: function() {
+
+
+            if(this.search !=='' && this.sortApha){
+            this.search='';
+
+        }
+            if (this.sortApha  ) {
+                this._isMobileChanged(true);
+
+
+            }
+
+                return (!this.sortApha);
+
+
+        },
+
+
+        _updateRoute: function(driversData) {
+
+            // console.log(driversData);
+        },
+
+        _filterSearch: function() {
+        //    console.log('search changed' + this.search);
+            if(this.search !==''){
+            this.sortApha = false;
+        }
+            var id = '',
+                i = 0;
+
+                this.recordFound=0;
+        for (i = 0; i < this.driversData.length; i++) {
+            id = this.driversData[i].driverId;
+
+            if(this.resultBy === 'First Name'){
+
+                if (this.driversData[i].firstName.indexOf(this.search.toUpperCase()) === -1) {
+
+
+                            document.getElementById(id).style.display = 'none';
+                        this.recordFound++;
+                        }
+                        else{
+
+                            document.getElementById(id).style.display = 'flex';
+
+
+                        }
+
+                    }
+
+
+                 if (this.resultBy === 'ID') {
+
+                                    if (this.driversData[i].driverId.indexOf(this.search.toUpperCase()) === -1) {
+
+                                        document.getElementById(id).style.display = 'none';
+                                    this.recordFound++;
+
+                                    }
+                                    else{
+                                        document.getElementById(id).style.display = 'flex';
+
+                                    }
+                                    // console.log(this.recordFound);
+
+                    }
+
+
+
+
+        }
+
+        this.recordFound = this.driversData.length - this.recordFound;
+
+        },
+
+        byFirstName: function(a, b) {
+            if (a.firstName < b.firstName) {
+                return -1;
+            }
+            if (a.firstName > b.firstName) {
+                return 1;
+            }
+            return 0;
+
+        },
+        _handleResponse: function() {
+            // this.set('orderDrivers',[]);
+            // this.orderDrivers=[];
+            this._orderAphabetical();
+            this.recordFound = this.driversData.length 
+        },
+
+        showSearch: function() {
+
+            if (this.searchBarHidden) {
+                this.$.searchBar.style.display = 'block';
+            } else {
+                this.$.searchBar.style.display = 'none';
+            }
+            this.searchBarHidden = !this.searchBarHidden;
+
+        },
+
+        _view: function(e) {
+
+            /*   this.sharedElements = {
+                   'card': this.$.listDrivers
+               };
+               console.log(this.sharedElements.card);*/
+            // // toggleSelection
+
+            // var item = this.$.driversList.itemForElement(e.target);
+            // this.set('selectedDriver', e.model.item);
+
+             this.selectedIndex = this.driversData.indexOf(e.model.item);
+             console.log(this.selectedIndex);
+             var neonAP=Polymer.dom(this).parentNode
+            neonAP.selected = 'driverProfile';
+            // DriversApi.getMissingLogs(e.model.item.driverId);
+
+            // console.log(neonAP);
+            // var driverProfile =document.querySelector('#driverProfile');
+            // driverProfile.missingLogsCount=2;
+            // console.log(driverProfile.$.mlogs);
+            //$.mlogs.data.length * (-1);
+            // console.log(e.model.item.driverId);
+
+
+        },
+
+
+        ready: function() {
+            //   this.driversData = window.driversList;
+            //       this._orderAphabetical();
+            //  this.$.searchBar.style.display = 'none';
+
+            this.sortApha = false;
+            // this.recordFound=0;
+
+
+
+        },
+        /*,
+                bahaviors: [Polymer.NeonSharedElementAnimatableBehavior]*/
+
+        _orderAphabetical: function() {
+            this.set('orderDrivers',[]);
+
+            this.driversData.sort(function(a, b) {
+
+
+                if (a.firstName < b.firstName) {
+                    return -1;
+                }
+                if (a.firstName > b.firstName) {
+                    return 1;
+                }
+                return 0;
+
+
+            });
+            var letters = [];
+            for (var i = 0; i < this.driversData.length; i++) {
+
+
+                var items = {};
+                var firstLetter = this.driversData[i].firstName.substring(0, 1).toUpperCase();
+                if (letters.indexOf(firstLetter) === -1) {
+
+                    items.firstLetter = firstLetter;
+                    items.drivers = [];
+                    for (var j = 0; j < this.driversData.length; j++) {
+                        if (this.driversData[j].firstName.substring(0, 1).toUpperCase() === firstLetter) {
+                            items.drivers.push(this.driversData[j]);
+                        }
+                    }
+                    letters.push(firstLetter);
+                    this.push('orderDrivers', items);
+                }
+
+
+
+            }
+            // this.set('driversData',this.orderDrivers);
+            // this.recordFound = 0;
+            this.recordFound = this.driversData.length - this.recordFound;
+        }
+
+
+
+    });
+    </script>
+</dom-module>

@@ -1,0 +1,84 @@
+<dom-module id="driver-missingLogs">
+  <template>
+    <style>
+      :host {
+        display: flex;
+         @apply(--layout-vertical);
+
+      }
+      paper-dialog{
+           @apply(--layout-horizontal-center);
+             @apply(--layout-flex)
+           @apply(--layout-wrap);
+
+           overflow: auto;
+
+            /*border:1px solid green;*/
+         width:500px;
+           height:500px;
+      }
+
+
+      [entry]{
+          @apply(--layout-vertical);
+
+          height: auto;
+          width: 100%;
+          /*border: 1px solid yellow;*/
+
+      }
+
+
+    </style>
+
+
+    <paper-dialog id="dialogLogs" entry-animation="scale-up-animation">
+        <div class="layout vertical center" >
+
+             <h2 class="center">{{data.length}} Missing logs</h2>
+        </div>
+
+
+
+
+        <template  is="dom-repeat" items="[[data]]" as="log" >
+            <div class="layout vertical">
+            <div entry>
+                        <paper-item>
+                            <span>[[log.index]]</span><paper-icon-button icon="mdi:calendar-remove"></paper-icon-button>[[log]]
+                        </paper-item>
+
+                        <!-- <driver-card></driver-card> -->
+
+                    </div>
+                    </div>
+       </template>
+
+
+</paper-dialog>
+
+
+  </template>
+  <script>
+    Polymer({
+      is: 'driver-missingLogs',
+
+      properties:{
+          data:{
+              type:Array
+        //   value:function () {
+        //       return [
+        //           '06/16/2015',' 06/17/2015',' 06/18/2015',' 06/19/2015',' 06/20/2015',' 06/21/2015',' 06/22/2015',' 06/23/2015',' 06/24/2015',' 06/25/2015',' 06/26/2015',' 06/27/2015',' 06/28/2015',' 06/29/2015',' 06/30/2015',' 07/01/2015',' 07/02/2015',' 07/03/2015',' 07/04/2015',' 07/05/2015',' 07/06/2015',' 07/07/2015',' 07/08/2015',' 07/09/2015',' 07/10/2015'
+        //       ]
+        //   }
+    }
+
+      },
+      show:function () {
+          this.$.dialogLogs.open();
+      }
+
+
+    });
+  </script>
+</dom-module>

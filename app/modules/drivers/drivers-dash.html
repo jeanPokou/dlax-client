@@ -1,0 +1,100 @@
+<dom-module id="drivers-dash">
+    <template>
+        <style>
+        :host {
+            /*     @apply(--layout-horizontal);
+        @apply(--paper-font-body2); */
+            margin-top: 50px;
+            margin-right: 10px;
+            p
+        }
+
+        [main] {
+            width: 100%;
+            @apply(--layout-horizontal);
+            @apply(--layout-wrap);
+            /*     border: 1px solid green;*/
+            margin: 15px;
+            background: var(--paper-grey-180);
+        }
+
+        [card] {
+            @apply(--layout-vertical);
+            @apply(--shadow-elevation-2dp);
+            width: calc(40% - 10px);
+            margin: 10px;
+            color: white;
+            min-height: 150px;
+
+        }
+
+        [content] {
+            @apply(--layout-horizontal);
+            height: auto;
+            @apply(--layout-center-center);
+            @apply(--layout-wrap);
+            width: 100%;
+            padding: 0px 5px;
+            /*
+*/
+            margin: 10px;
+        }
+
+
+
+       #list   {
+           --cardHeader-background-color: #8e44ad;
+        }
+
+        .documents {
+         --cardHeader-background-color: #1abc9c;
+        }
+
+        .logs {
+             --cardHeader-background-color: #e67e22;
+        }
+
+        .eobr {
+            --cardHeader-background-color: #e74c3c;
+        }
+
+        [details] {
+            @apply(--layout-vertical);
+        }
+        </style>
+        <div main>
+            <div content>
+
+
+                    <dash-card id="list"  header="LIST" icon="mdi:social:people"  on-click="showList"></dash-card>
+                    <dash-card class="logs" header="LOGS" icon="mdi:file-chart"></dash-card>
+                    <dash-card class="eobr" header="EOBR" icon="mdi:car-connected"></dash-card>
+                    <dash-card class="documents" header="DOCUMENTS" icon="mdi:file-document"></dash-card>
+
+
+            </div>
+        </div>
+    </template>
+    <script>
+    Polymer({
+        is: 'drivers-dash',
+        properties:{
+        	data:{
+        		type:Object,
+        		notify:true,
+        		value:function(){
+        			return [];
+        		}
+        	}
+        },
+
+        showList: function() {
+            this.parentNode.selected = 'driversList';
+        },
+
+        ready:function(){
+        	this.$.list.content='2125 Active Drivers';
+        }
+    });
+    </script>
+</dom-module>

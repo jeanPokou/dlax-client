@@ -1,0 +1,98 @@
+<dom-module id="p-rating">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <div main>
+    <div class="layout horizontal center ">
+    <template is="dom-repeat" items="{{ratingArray}}" >
+    <iron-icon icon="[[item.icon]]"></iron-icon>
+    </template>
+    </div>
+
+
+    </div>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'p-rating',
+      properties:{
+          rate:{
+              type:Number,
+              value:0,
+              observer:'_rateChanged'
+
+          },
+          maxRate:{
+            type:Number,
+            value:100
+          },
+          ratingArray:{
+              type:Array,
+              value:function(){
+                  return [];
+
+              }
+          },
+          length:{
+            type:Number,
+            value:5
+          },
+          iconType:{
+              type:Array,
+              value:function () {
+                  return [
+                     'mdi:star-outline',
+                     'mdi:star-half',
+                     'mdi:star'
+                 ];
+              }
+
+          },
+
+
+      },
+      _rateChanged:function () {
+          this.set('ratingArray',[]);
+           for(var i=0;i<this.length;i++){
+               var item={
+                   icon:this.iconType[0],
+                   value:this.maxRate/this.length
+               };
+               this.push('ratingArray',item);
+
+           }
+            this.getStarsIcon();
+      },
+      ready:function () {
+          this._rateChanged();
+      },
+      getStarsIcon:function () {
+          var i=this.rate/(this.maxRate/this.length);
+          var k=0;
+          ++k;
+          console.log(i);
+          while(i>=0){
+              var index = Math.floor(i-1);
+
+              if(i>1 || i==1){
+
+
+                    console.log('i>'+index);
+                  this.set('ratingArray.'+ index +'.icon',this.iconType[2]);
+              }
+              if(i<1  && i>0){
+                  console.log('i<');
+                  this.set('ratingArray.'+ (k-1) +'.icon',this.iconType[1]);
+              }
+
+              i--;
+          }
+      }
+    });
+  </script>
+</dom-module>

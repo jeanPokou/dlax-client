@@ -1,0 +1,212 @@
+<dom-module id="dlax-app">
+    <template>
+        <style>
+        :host {
+            display: flex;
+        }
+
+        .container {
+            display: -webkit-flex;
+        }
+
+        .flexchild {
+            display: --layout-flex-3;
+        }
+
+        .userAvatar {
+            position: relative;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            left: 35%;
+        }
+
+        paper-menu iron-icon {
+            margin-right: 33px;
+            opacity: 0.54;
+        }
+
+        .paper-menu > .iron-selected {
+            color: var(--default-primary-color);
+        }
+
+        paper-menu a {
+            text-decoration: none;
+            color: var(--menu-link-color);
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -ms-flex-direction: row;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+            font-family: 'Roboto', 'Noto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 24px;
+            min-height: 48px;
+            padding: 0 16px;
+        }
+
+        #mainToolbar,
+        #drawerToolbar {
+            @apply(--shadow-elevation-3dp);
+        }
+
+        #mainToolbar .middle-container {
+            height: 100%;
+            margin-left: 48px;
+        }
+
+        #mainToolbar:not(.tall) .middle {
+            font-size: 18px;
+            padding-bottom: 0;
+        }
+
+        </style>
+        <paper-drawer-panel id="paperDrawerPanel" force-Narrow>
+            <paper-header-panel drawer>
+                <paper-toolbar id="drawerToolbar" class="tall">
+                    <img class="userAvatar" src="http://i1379.photobucket.com/albums/ah142/pokoujeanmarc/e9ef93c2e16211718bd554f16fccb52e_zps8rqwr55w.jpeg" alt="">
+                </paper-toolbar>
+                <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+                    <a href="/" data-route="home" on-click="onDataRouteClick">
+                        <iron-icon icon="home"></iron-icon>
+                        <span>Home</span>
+                    </a>
+                    <a href="/drivers" data-route="drivers" on-click="showDrivers">
+                        <iron-icon icon="social:people"></iron-icon>
+                        <span>Drivers</span>
+                    </a>
+                    <a href="/vehicles" data-route="vehicles" on-click="onDataRouteClick">
+                        <iron-icon icon="maps:local-shipping"></iron-icon>
+                        <span>Vehicles</span>
+                    </a>
+                </paper-menu>
+            </paper-header-panel>
+            <paper-scroll-header-panel main fixed keep-condensed-header>
+                <paper-toolbar id="mainToolbar">
+                    <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
+                    <span class="flex"></span>
+                    <!-- Toolbar icons -->
+                    <paper-icon-button icon="search"></paper-icon-button>
+                    <paper-icon-button icon="mail"></paper-icon-button>
+                    <paper-icon-button icon="toc"></paper-icon-button>
+                    <paper-icon-button icon="settings" on-click="showSettings"></paper-icon-button>
+                    <!-- Application name -->
+                    <div class="middle middle-container center horizontal layout">
+                        <div class="app-name">DLAX</div>
+                    </div>
+                </paper-toolbar>
+
+                <div>
+                    <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+                        <drivers-x data-route="drivers" id="drivers"></drivers-x>
+                        <dla-x header="DASHBOARD" data-route="home"></dla-x>
+                        <dla-x header="VEHICLES" data-route="vehicles"></dla-x>
+                    </neon-animated-pages>
+                </div>
+            </paper-scroll-header-panel>
+        </paper-drawer-panel>
+    </template>
+    <script>
+    Polymer({
+        is: 'dlax-app',
+        properties: {
+            route: {
+                type: String,
+                 value: 'drivers'
+            },
+            animationConfig: {
+                value: function() {
+                    return {
+                        'entry': [{
+                            name: 'hero-animation',
+                            id: 'hero',
+                            toPage: this,
+                            timing: {
+                                duration: 1000
+                            }
+                        }],
+                        'exit': {
+                            name: 'fade-out-animation',
+                            node: this
+                        }
+                    };
+
+                }
+
+            },
+
+            sharedElements: {
+                value: function() {
+                    return {
+                        'hero': this.$.mainToolbar
+                    };
+                }
+            }
+
+        },
+        ready: function() {
+            // //   this.selected = 1;
+
+
+
+        },
+        showDrivers: function() {
+            this.route = 'drivers';
+            this.$.drivers.selected='driversList';
+            this.onDataRouteClick();
+        },
+
+
+        onDataRouteClick: function() {
+            var drawerPanel = this.$.paperDrawerPanel;
+            if (drawerPanel.narrow) {
+                drawerPanel.closeDrawer();
+            }
+        },
+
+
+        scrollPageToTop: function() {
+            this.scrollTop = 0;
+        },
+        scrollToTop: function() {
+
+        },
+        showSettings: function () {
+            DriversApi.editDriver();
+        },
+        behaviors: [Polymer.NeonSharedElementAnimatableBehavior]
+
+
+
+
+
+    });
+    </script>
+</dom-module>
+<!--  <paper-submenu>
+                        <a href="/drivers" class="menu-trigger" data-route="drivers">
+                            <iron-icon icon="social:people"></iron-icon>
+                            <span>Drivers</span>
+                        </a>
+
+                        <paper-menu class="menu-content">
+                            <paper-item>
+                                <a href="">
+                                    <iron-icon icon="mdi:file-document"></iron-icon> <span>Documents </span>
+                                </a>
+                            </paper-item>
+                            <paper-item>
+                                <a href="">
+                                    <iron-icon icon="mdi:file-chart"></iron-icon> <span>Logs </span>
+                                </a>
+                            </paper-item>
+                        </paper-menu>
+                    </paper-submenu> -->

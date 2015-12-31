@@ -1,0 +1,217 @@
+<dom-module id="add-driver">
+  <template>
+    <style>
+      :host {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        position: relative;
+        height: calc(80% - 10px);
+        top: 10px;
+        margin-bottom: 10px;
+        --paper-input-container-color: black;
+        --paper-input-container-focus-color: var(--default-primary-color);
+        --paper-fab-background: var(--paper-blue-600);
+      }
+
+      [main] {
+        @apply(--layout-vertical);
+        @apply(--shadow-elevation-3dp);
+        background: var(--paper-grey-100);
+        height: auto;
+        width: calc(70% - 25px);
+        padding-bottom: 15px;
+      }
+
+      .avatar {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        background-color: #ccc;
+        text-align: center;
+      }
+
+      paper-toolbar {
+        background: var(--dark-primary-color);
+        height: 50px;
+      }
+
+      [dash] {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex-2);
+        @apply(--layout-center-center);
+        height: 180px;
+      }
+
+      [vcard] {
+        height: auto;
+        @apply(--layout-horizontal);
+        @apply(--layout-wrap);
+        /*
+            width: 35%;*/
+        /*border: 1px solid orange;*/
+        background-color: var(--default-primary-color);
+        --paper-input-container-color: white;
+      }
+
+      [info] {
+        @apply(--layout-horizontal);
+        @apply(--layout-flex-3);
+        @apply(--layout-center-center);
+        border-left: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        height: 180px;
+        color: black;
+        background-color: white;
+      }
+
+      .camera {
+        margin-top: 25px;
+      }
+
+      .save {
+        position: relative;
+        bottom: 20px;
+        left: 90%;
+      }
+      /*  paper-input[type="text"]*/
+
+      #header {
+        margin-left: 25px;
+      }
+
+      .id {
+        font-size: 3em;
+      }
+
+      .id iron-icon,
+      paper-input iron-icon {
+        margin-right: 5px;
+      }
+    </style>
+    <div main class="vertical layout">
+      <paper-toolbar>
+        <paper-icon-button icon="arrow-back" on-click="back"></paper-icon-button>
+        <span class="flex"></span>
+        <paper-icon-button icon="more-vert"></paper-icon-button>
+      </paper-toolbar>
+      <div vcard>
+        <div dash>
+          <div class="layout horizontal center">
+            <div class="avatar">
+              <paper-icon-button icon="mdi:camera" class="camera"></paper-icon-button>
+            </div>
+          </div>
+        </div>
+        <div info>
+          <div class="layout vertical center">
+            <paper-icon-item class="id">
+              <iron-icon icon="mdi:account"></iron-icon>{{driverData.driverId}}</paper-icon-item>
+            <paper-input label="Phone">
+              <iron-icon icon="mdi:phone" prefix></iron-icon>
+            </paper-input>
+            <paper-input label="Email">
+              <iron-icon icon="mdi:email" prefix></iron-icon>
+            </paper-input>
+          </div>
+        </div>
+      </div>
+      <paper-fab icon="mdi:content-save" class="save" elevation="3" mini></paper-fab>
+      <div class="vertical center ">
+        <div class="layout horizontal center">
+          <h2 id="header">Personal informations</h2>
+          <div class="flex-3"></div>
+          <paper-item>
+            <paper-toggle-button>Inactive</paper-toggle-button>
+          </paper-item>
+
+
+        </div>
+        <div class="horizontal layout center">
+          <div class="layout vertical flex center">
+            <paper-input label="First Name" type="text"></paper-input>
+
+            <paper-input label="City" type="text"></paper-input>
+
+
+            <paper-input label="Street" type="text"></paper-input>
+
+            <paper-input label="Zip Code" type="text"></paper-input>
+
+            <paper-input label="Province" type="text"></paper-input>
+
+            <paper-input label="Country" type="text"></paper-input>
+            <paper-input label="Time Zone"></paper-input>
+
+          </div>
+          <div class="layout vertical flex center">
+            <paper-input label="Last Name" type="text"></paper-input>
+
+            <paper-input label="Driver id" type="text" value="{{driverID}}"></paper-input>
+
+
+            <paper-input label="SIN"></paper-input>
+
+
+            <paper-input label="Date of Birth" type="text"></paper-input>
+
+            <paper-input label="Date of employment" type="text"></paper-input>
+
+            <paper-input label="Termination date" type="text"></paper-input>
+
+            <paper-input label="Group"></paper-input>
+
+          </div>
+          <div class="layout vertical flex center">
+            <paper-input style="margin-top:-5px;" label="As"></paper-input>
+            <span style="margin-left:-120px;margin-top:5px;">Language</span>
+            <div class="layout vertical" style="max-width:100px;margin-left:-110px;">
+              <paper-radio-group selected="English">
+                <paper-radio-button name="English">English</paper-radio-button>
+                <paper-radio-button name="French">French</paper-radio-button>
+              </paper-radio-group>
+            </div>
+            <paper-checkbox style="    margin-top: 25px;margin-left: -23px;" checked>Agricultural Certified</paper-checkbox>
+            <paper-input label="Terminal" type="text"></paper-input>
+            <paper-input label="Unit#" type="number"></paper-input>
+            <paper-input label="Single" type="text"></paper-input>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <script>
+    Polymer({
+      is: 'add-driver',
+      properties: {
+        driverData: {
+            type: Object
+
+        },
+        isEditable:{
+            type:Boolean,
+            value:function () {
+              return false;
+          }
+      }},
+      listeners: {
+        ontap: 'back'
+
+      },
+      showDialog: function() {
+        this.$.dialog.toggle();
+      },
+      ready: function() {
+        this.$.date = new Date();
+      },
+      back: function() {
+        this.parentNode.selected = 'driversList';
+      }
+
+    });
+  </script>
+</dom-module>

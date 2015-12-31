@@ -1,0 +1,691 @@
+<dom-module id="driver-profile">
+    <template>
+        <style is="custon-style">
+        :host {
+            @apply(--layout-vertical);
+            box-sizing: border-box;
+            @apply(--layout-center-center);
+            --paper-badge-background: #D32F2F;
+            --paper-badge-width: 42px;
+            --paper-badge-height: 42px;
+            position: relative;
+                --paper-fab-background: var(--paper-blue-600);
+      height: calc(80% - 10px);
+      top: 10px;
+      margin-bottom: 10px;
+        }
+        /*   --dark-primary-color: #0288D1;
+      --default-primary-color: #03A9F4; */
+
+        [main] {
+            @apply(--layout-vertical);
+            @apply(--shadow-elevation-3dp);
+            background: var(--paper-grey-100);
+            height: auto;
+            width: calc(80% - 16px);
+            padding-bottom: 15px;
+        }
+
+        paper-toolbar {
+            background: var(--dark-primary-color);
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+         .cameraAvatar {
+           width: 90px;
+           height: 90px;
+           border-radius: 50%;
+           margin-bottom: 10px;
+           background-color: #ccc;
+           text-align: center;
+         }
+
+        .rating {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            background-color: #ccc;
+            font-size: 0.9em;
+
+        }
+     paper-input,paper-dropdown-menu {
+        width: 100%;
+      }
+
+      paper-dropdown-menu paper-menu-button {
+        width: 100%;
+        padding: 0;
+      }
+                        /*.save{
+                            margin-top: -1%;
+                            position: fixed;
+                            right: 120px;
+                        }
+                            .edit{
+                                margin-top: -1%;
+                                position: fixed;
+                                right: 200px;
+                            }
+                                .cancelEdit{
+                                    margin-top: -1%;
+                                    position: fixed;
+                                    left:90%;
+                                }*/
+
+
+        .missingsLog {
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            background-color: var(--paper-grey-300);
+            /*   float: right;
+          margin-top: 110px;
+          margin-right: -50px; */
+            font-size: 0.9em;
+        }
+        .camera {
+          margin-top: 25px;
+        }
+
+        [vcard] {
+            height: auto;
+            @apply(--layout-horizontal);
+            @apply(--layout-wrap);
+            /*
+            width: 35%;*/
+            /* border: 1px solid orange;*/
+            background-color: var(--default-primary-color);
+        }
+
+        [info] {
+            @apply(--layout-horizontal);
+            @apply(--layout-flex-3);
+            @apply(--layout-center-center);
+            /*   border: 1px solid green;*/
+            height: 180px;
+            color: black;
+            background-color:var(--paper-grey-300);
+        }
+
+        .fullName {
+            font-size: 1.5em;
+            margin: 5px;
+        }
+
+        .companyId {
+            font-size: 1.2em;
+            margin: 5px;
+        }
+
+        paper-icon-item {
+            margin: 5px;
+        }
+
+        iron-icon {
+            margin-right: 3px;
+        }
+
+        [dash] {
+            @apply(--layout-horizontal);
+            @apply(--layout-flex-2);
+            @apply(--layout-center-center);
+            height: 180px;
+            /* padding-top: 12px;
+            padding-left: 20px;
+            padding-right: 20px; */
+            /* border: 1px solid green;*/
+            /*
+*/
+        }
+
+        [details] {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-center);
+        }
+
+        .name {
+            color: var(--text-primary-color);
+        }
+
+        @media(max-width: 601px) {
+            [main] {
+                width: calc(95.33% - 2px);
+            }
+            [vcard] {
+                height: auto;
+                @apply(--layout-vertical);
+                @apply(--layout-wrap);
+            }
+            [details] {
+                @apply(--layout-vertical);
+                @apply(--layout-center-center);
+            }
+        }
+
+        @media(min-width: 601px) {
+            [main] {
+                width: calc(90.33% - 16px);
+            }
+        }
+
+        paper-badge {
+            color: white;
+            margin-right: 120px;
+        }
+
+        .list {
+            padding-top: 12px;
+            background-color: white;
+            display: inline-block;
+            width: 100%;
+            height: 228px;
+            margin: 12px;
+            @apply(--shadow-elevation-2dp);
+        }
+
+        .short {
+            padding-top: 12px;
+            height: 216px;
+        }
+
+        .header {
+            color: black;
+            font-weight: bold;
+        }
+
+        paper-item {
+            /*border-top: 1px solid #ccc;*/
+        }
+
+        h2 {
+            margin-left: 24px;
+        }
+
+        [dashInfo] {
+            @apply(--layout-vertical);
+            @apply(--flex-2);
+            @apply(--layout-center-center);
+            height: 100%;
+            /*   border: 1px solid red;
+          @apply(--shadow-elevation-2dp); */
+            padding: 1px;
+            color: white;
+            background-color: #03A9F4;
+        }
+
+        [stat]{
+          @apply(--layout-horizontal);
+          border-bottom: 1px solid #ccc;
+          min-height: 80px;
+          padding: 5px 2px ;
+        }
+        [realTimeInfo]{
+          @apply(--layout-horizontal);
+          @apply(--layout-center-center);
+          @apply(--layout-fex);
+          border-left:1px solid #ccc;
+        }
+        .rating{
+            color: black;
+        }
+        </style>
+
+        <div main layout vertical id="tt">
+            <paper-toolbar>
+                <paper-icon-button icon="arrow-back" on-click="back"></paper-icon-button>
+                <span class="flex"></span>
+                <paper-icon-button icon="mdi:chart-bar"></paper-icon-button>
+                <paper-icon-button icon="mdi:file-document" on-click="viewDocuments"></paper-icon-button>
+                <paper-icon-button icon="more-vert"></paper-icon-button>
+            </paper-toolbar>
+
+
+            <div vcard>
+                <div dash>
+                    <div class="layout vertical flex center">
+                        <div class="layout horizontal center">
+                                <iron-image  hidden$="{{!isEditable}}"  class="avatar" placeholder="avatar.jpg"
+                    sizing="cover" preload src="{{driverData.avatar}}"></iron-image>
+                     <div class="layout horizontal center" hidden$="{{isEditable}}">
+                       <div class="cameraAvatar">
+                         <paper-icon-button icon="mdi:camera" class="camera"></paper-icon-button>
+                       </div>
+                     </div>
+
+                            <paper-badge label="{{missingLogsCount}}" on-click="viewMissingLogs"></paper-badge>
+                        </div>
+                        <p-rating rate="{{_computeRating(driverData.Hrs_pct)}}"></p-rating>
+
+
+                    </div>
+
+                </div>
+                <div info>
+                    <div class="layout center horizontal">
+                        <div class="layout vertical center">
+                            <span class="fullName">{{driverData.firstName}} {{driverData.lName}}</span>
+                            <span class="comanyID">{{driverData.driverId}}</span>
+                            <!-- <paper-icon-item>
+                                <iron-icon icon="communication:phone"></iron-icon> <span>{{driverData.Phone}}</span>
+                            </paper-icon-item>
+                            <paper-icon-item>
+                                <iron-icon icon="communication:email"> </iron-icon> <span>{{driverData.email}}</span>
+                            </paper-icon-item> -->
+                        <span hidden$="{{!isEditable}}">({{_computeLanguage(driverData.language)}})</span>
+                        <paper-radio-group selected="{{driverData.language}}" attr-for-selected="index" hidden$="{{isEditable}}">
+                          <paper-radio-button name="English" index="1">English</paper-radio-button>
+                          <paper-radio-button name="French" index="2">French</paper-radio-button>
+                        </paper-radio-group>
+                        </div>
+                        <div class="layout vertical center flex-1">
+                            <!-- <span>LTD Miles :152</span>
+                            <span> Reset Date :15/15/12</span>
+                            <span> Miles Since Reset :13213</span> -->
+                            <!--   <paper-icon-item>
+                             <iron-icon icon="mdi:calendar-check"></iron-icon>
+                         <paper-icon-item>
+                             <iron-icon icon="mdi:calendar-check"></iron-icon> <span> Reset Date :15/15/12</span>
+                         </paper-icon-item> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div stat style="display:none">
+
+              <div class="layout vertical flex center">
+                <div class="layout horizontal flex center">
+                     <h3>Life to date</h3>
+                </div>
+              <div class="layout horizontal center flex">
+
+                  <paper-item>
+                      <paper-item-body two-line>
+                          <div class="header">Reset Date</div>
+                          <div secondary>12/05/2015</div>
+                      </paper-item-body>
+                  </paper-item>
+                  <paper-item>
+                      <paper-item-body two-line>
+                          <div class="header">Miles Since Reset</div>
+                          <div secondary>53451</div>
+                      </paper-item-body>
+                  </paper-item>
+                  <paper-item>
+                    <paper-item-body two line>
+                      <div class="header">LTD Miles</div>
+                      <div secondary>3121</div>
+                    </paper-item-body>
+                  </paper-item>
+              </div>
+
+              </div>
+
+                      <div class="flex" realTimeInfo>
+                        <h3> Real Time Log Information </h3>
+
+                      </div>
+
+
+            </div>
+
+            <div class="layout vertical">
+                <div class="layout horizontal center">
+                    <h2>Personal informations</h2>
+                    <span class="flex"></span>
+                    <paper-icon-button  icon="mdi:content-save"  on-click="_save" class="save"  hidden$="{{isEditable}}"></paper-icon-button>
+                    <paper-fab  mini icon="editor:mode-edit" on-click="_edit" class="edit"  hidden$="{{!isEditable}}"></paper-fab>
+                    <paper-icon-button  icon="mdi:pencil-off" on-click="_edit" class="cancelEdit" hidden$="{{isEditable}}"></paper-icon-button>
+                </div>
+                <div details>
+                    <div class="layout vertical flex">
+                        <paper-item>
+                            <paper-item-body two-line class="layout vertical" hidden$="{{!isEditable}}">
+                                <div class='header'>First Name</div>
+                                <div secondary>[[driverData.firstName]]</div>
+
+                            </paper-item-body>
+                                <paper-input label="First Name" hidden$="{{isEditable}}" value={{driverData.firstName}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line  hidden$="{{!isEditable}}">
+                                <div class="header">Date Of Birth</div>
+                                <div secondary>{{_computeDate(driverData.dob)}}</div>
+                            </paper-item-body>
+                            <paper-input   label="Date of Birth" hidden$="{{isEditable}}" value={{_computeDate(driverData.dob)}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line  hidden$="{{!isEditable}}">
+                                <div class="header">City</div>
+                                <div secondary>{{driverData.city}}</div>
+                            </paper-item-body>
+                            <paper-input label="City" hidden$="{{isEditable}}" value={{driverData.city}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}" >
+                                <div class="header">Street</div>
+                                <div secondary>{{driverData.address}}</div>
+                            </paper-item-body>
+                            <paper-input label="Address" hidden$="{{isEditable}}" value={{driverData.address}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Zip Code</div>
+                                <div secondary>{{driverData.postCode}}</div>
+                            </paper-item-body>
+                <paper-input label="Zip Code" hidden$="{{isEditable}}" value={{driverData.postCode}}></paper-input>
+                        </paper-item>
+                            <paper-item>
+                                <paper-item-body two-line  hidden$="{{!isEditable}}" >
+                                    <div class="header">Country</div>
+                                    <div secondary>{{_country(driverData.homeTerminal)}}</div>
+                                </paper-item-body>
+                                    <paper-dropdown-menu class="nounderline" label="Country" hidden$="{{isEditable}}" >
+                                      <paper-menu class="dropdown-content">
+                                        <template is="dom-repeat" items="[[country]]" >
+                                          <paper-item>[[item]]</paper-item>
+                                        </template>
+                                    </paper-menu>
+                                      </paper-dropdown-menu>
+
+                            </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Province</div>
+                                <div secondary>{{driverData.prov}}</div>
+                            </paper-item-body>
+                                <paper-input label="Province" hidden$="{{isEditable}}" value={{driverData.prov}}></paper-input>
+                        </paper-item>
+
+
+                    </div>
+
+
+                    <div class="layout vertical flex">
+                      <paper-item>
+                          <paper-item-body two-line hidden$="{{!isEditable}}">
+                              <div class="header">Time Zone</div>
+                              <div secondary>{{driverData.Ftime}}</div>
+                          </paper-item-body>
+                            <paper-dropdown-menu class="nounderline" label="Time Zone" value="{{driverData.Ftime}}" vertical-align="bottom" hidden$="{{isEditable}}" >
+                              <paper-menu class="dropdown-content">
+                                <template is="dom-repeat" items="[[timeZone]]" >
+                                  <paper-item>[[item]]</paper-item>
+                                </template>
+                            </paper-menu>
+                              </paper-dropdown-menu>
+                      </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line class="layout vertical"  hidden$="{{!isEditable}}">
+                                <div class='header'>Last Name</div>
+                                <div secondary>{{driverData.lName}}</div>
+
+                            </paper-item-body>
+                            <paper-input label="Last Name" hidden$="{{isEditable}}" value={{driverData.lName}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">SIN</div>
+                                <div secondary>{{driverData.SIN}}</div>
+                            </paper-item-body>
+                                <paper-input label="SIN" hidden$="{{isEditable}}" value={{driverData.SIN}}></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Date of Employment</div>
+                                <div secondary></div>
+                            </paper-item-body>
+                            <paper-input label="Date of Employment" type="text" hidden$="{{isEditable}}"></paper-input>
+
+                        </paper-item>
+
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Terminal</div>
+                                <div secondary>{{driverData.terminal}}</div>
+                            </paper-item-body>
+                            <paper-input label="Terminal" type="text" hidden$="{{isEditable}}" value="{{driverData.terminal}}"></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Group</div>
+                                <div secondary></div>
+                            </paper-item-body>
+                                <paper-input label="Group" type="text" hidden$="{{isEditable}}"></paper-input>
+                        </paper-item>
+                        <paper-item>
+                            <paper-item-body two-line hidden$="{{!isEditable}}">
+                                <div class="header">Email</div>
+                                <div secondary></div>
+                            </paper-item-body>
+                            <paper-input label="Email" hidden$="{{isEditable}}"></paper-input>
+                        </paper-item>
+                    </div>
+
+                        <div class="layout flex vertical">
+
+                            <paper-checkbox style=" margin-bottom:10px;margin-left:10px;"  disabled$="{{isEditable}}" checked>Agricultural Certified</paper-checkbox>
+                            <paper-item>
+                                <paper-item-body two-line  hidden$="{{!isEditable}}">
+                                    <div class="header">Type</div>
+                                    <div secondary></div>
+                                </paper-item-body>
+
+                              <paper-dropdown-menu class="nounderline" label="Type" vertical-align="bottom" hidden$="{{isEditable}}" >
+                                <paper-menu class="dropdown-content">
+                                  <template is="dom-repeat" items="[[typeDriver]]" >
+                                    <paper-item>[[item]]</paper-item>
+                                  </template>
+                              </paper-menu>
+                                </paper-dropdown-menu>
+
+                            </paper-item>
+
+
+                                <paper-item>
+                                    <paper-item-body two-line hidden$="{{!isEditable}}">
+                                        <div class="header"> Emmergency Contact</div>
+                                        <div secondary>{{driverData.Phone1}}</div>
+                                    </paper-item-body>
+                                        <paper-input label="Emmergency Contact" type="text" hidden$="{{isEditable}}"></paper-input>
+                                </paper-item>
+                            <paper-item>
+                                <paper-item-body two-line hidden$="{{!isEditable}}">
+                                    <div class="header">Emmergency Phone</div>
+                                    <div secondary>{{driverData.Phone1}}</div>
+                                </paper-item-body>
+                                <paper-input label="Emmergency Phone" type="text" hidden$="{{isEditable}}"></paper-input>
+                            </paper-item>
+                            <paper-item>
+                                <paper-item-body two-line hidden$="{{!isEditable}}">
+                                    <div class="header"> Unit</div>
+                                    <div secondary></div>
+                                </paper-item-body>
+                                    <paper-input label="Unit#" type="number" hidden$="{{isEditable}}"></paper-input>
+                            </paper-item>
+                                <paper-item>
+                                    <paper-item-body two-line  hidden$="{{!isEditable}}">
+                                        <div class="header">Termination Date</div>
+                                        <div secondary></div>
+                                    </paper-item-body>
+                                    <paper-input label="Termination Date" type="text" hidden$="{{isEditable}}"></paper-input>
+                                </paper-item>
+                                    <paper-item>
+                                        <paper-item-body two-line hidden$="{{!isEditable}}">
+                                            <div class="header">Home Terminal</div>
+                                            <div secondary>{{driverData.homeTerminal}}</div>
+                                        </paper-item-body>
+                                            <paper-input label="Home Terminal" type="text" hidden$="{{isEditable}}"></paper-input>
+                                    </paper-item>
+
+
+                            <!-- <paper-checkbox style="    margin-top: 25px;margin-left: -23px;" checked>Agricultural Certified</paper-checkbox>
+                            <paper-input label="Terminal" type="text"></paper-input>
+                            <paper-input label="Unit#" type="number"></paper-input>
+                            <paper-input label="Single" type="text"></paper-input> -->
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <driver-missingLogs id="mlogs"></driver-missingLogs>
+        <paper-toast id="toastUpdated" ></paper-toast>
+        <iron-ajax
+          id="ajax"
+          method="POST"
+          on-response="_handleResponse"
+          body="{{driverData}}"
+          content-type="application/json"
+          handle-as="json"
+          ></iron-ajax>
+    </template>
+
+    <script>
+    Polymer({
+        is: 'driver-profile',
+        properties: {
+            driverData: {
+                type: Object
+
+            },
+            isEditable:{
+                type:Boolean,
+                value:function () {
+                  return false;
+              }
+
+
+          },
+          missingLogsCount:{
+              type:Number,
+              value:function () {
+                  return 0;
+              }
+          },
+           country:{
+               type: String,
+               notify: true,
+               observer:'_country'
+           }
+           ,typeDriver:{
+               type:Array,
+               value:function () {
+                   return ['Single','Team','Slip seat','Part time','Bus driver','Regional','Others']
+               }
+           },
+           timeZone:{
+               type:Array,
+               value:function () {
+                   return ['NewdfoundLand Standard Time','Eastern Standard Time','Atlantic Standard Time ','Central Standard Time','Mountain Standard Time','Pacific Standard Time']
+               }
+           },
+           country:{
+               type:Array,
+               value:function () {
+                   return ['CANADA','USA'];
+               }
+           }
+
+            /*,
+                        animationConfig: {
+                            value: function() {
+                                return {
+                                    'entry': 'hero-animation',
+                                    id: 'card',
+                                    toPage: this,
+                                    timing: {
+                                        duration: 3000
+                                    }
+                                };
+                            }
+                        },
+
+                        sharedElements: {
+                            value: function() {
+                                return {
+                                    'card': this.$.tt
+                                };
+                            }
+                        }*/
+
+         },
+         _computeRating:function (val) {
+             return Math.round(parseInt(val));
+         },
+         viewMissingLogs :function () {
+            this.$.mlogs.show();
+            this.missingLogsCount=this.$.mlogs.data.length * (-1);
+
+         },
+        _computeDate:function (date) {
+            if(date === '' || date ==='  /  /  ')
+            return '';
+        },
+        _computeLanguage: function (lan) {
+            if(lan==='2'){
+                return 'French';
+            }
+            else{
+                return 'English'
+            }
+        },
+
+        _country:function (item) {
+            var retval =''
+            if(item === 'CDN'){
+            retval='CANADA';}
+            else if (item === 'USA') {
+                retval='USA';
+            }
+            return retval;
+
+        },
+        _edit:function(){
+                this.isEditable = !this.isEditable;
+
+        },
+        _save :function(){
+
+                // DriversApi.editDriver(this.driverData.driverId, this.driverData);
+                this.$.ajax.url="http://localhost:3000/drivers/"+this.driverData.driverId;
+                // this.$.ajax.params={'driverId': this.driverData.driverId};
+                this.$.ajax.generateRequest();
+
+                this.isEditable=!this.isEditable;
+                var l= document.querySelector('drivers-list');
+                var c= document.getElementById(this.driverData.driverId);
+                c.set('cardData',[]);
+                c.set('cardData',this.driverData);
+
+
+
+        },
+        _handleResponse:function (e) {
+            console.log(e);
+            document.querySelector('#toastUpdated').text= this.$.ajax.lastResponse.message;
+            document.querySelector('#toastUpdated').open();
+
+        },
+        ready: function() {
+            this.isEditable=true;
+
+        },
+        back: function() {
+                this.parentNode.selected = 'driversList';
+                this.isEditable=true;
+
+            },
+            viewDocuments:function(){
+              this.parentNode.selected='driverDocuments';
+
+            }
+            /*,
+                    bahaviors: [Polymer.NeonSharedElementAnimatableBehavior]*/
+    });
+    </script>
+</dom-module>

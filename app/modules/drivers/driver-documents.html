@@ -1,0 +1,143 @@
+<dom-module id="driver-documents">
+    <template>
+        <style>
+        :host {
+            display: flex;
+            position: relative;
+            height: calc(80% - 10px);
+            top: 10px;
+           /* margin-bottom: 5px;*/
+            @apply(--layout-center-center)
+            --paper-fab-background:var(--default-primary-color);
+        }
+        [main]{
+          @apply(--layout-vertical);
+          @apply(--shadow-elevation-3dp);
+          background: var(--paper-grey-100);
+          height: auto;
+          width: calc(80% - 16px);
+
+        }
+        paper-toolbar {
+           background: var(--dark-primary-color);
+
+       }
+
+        [list]{
+          width:100%;
+          @apply(--layout-vertical);
+          @apply(--layout-center-center);
+
+
+        }
+        paper-item{
+          height: 80px;
+          border-top: 1px solid #ccc;
+          /*margin-top:2px;*/
+
+          @apply(--layout-center-center);
+        }
+      .doc paper-icon-button{
+          width: 64px;
+          height: 64px;
+          color:var(--paper-grey-600);
+        }
+        [details]{
+          @apply(--layout-vertical);
+          height:180px;
+          background-color:#ccc;
+          margin-bottom:  30px;
+          @apply(--shadow-elevation-2dp);
+          @apply(--layout-center-center);
+        }
+        paper-fab{
+          position:absolute;
+        right: 15%;
+        top: 215px;
+        }
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        </style>
+
+
+
+        <div main>
+          <paper-toolbar>
+            <paper-icon-button icon="arrow-back" on-click="back"></paper-icon-button>
+            <div class="flex"></div>
+            <paper-icon-button icon="more-vert"></paper-icon-button>
+
+          </paper-toolbar>
+
+          <div details>
+            <div class="layout vertical center">
+                  <!-- <img src="[[data.avatar]]" alt=""> -->
+                <iron-image   class="avatar " placeholder="avatar.jpg"
+  sizing="cover" preload src="[[data.avatar]]"></iron-image>
+                <span>[[data.firstName]]</span>
+                  <span>[[data.driverId]]</span>
+            </div>
+
+          </div>
+
+
+                <paper-listbox selected="[[selected]]">
+
+                  <template is="dom-repeat" items="[[documentsList]]">
+                    <paper-item >
+                       <div class="layout vertical flex-1 doc">
+                         <paper-icon-button icon="mdi:file-document"></paper-icon-button>
+                       </div>
+                       <div class="layout horizontal flex-3 center">
+                         <span>[[item.title]]</span>
+                         <div class="flex"></div>
+                          <paper-icon-button icon="mdi:delete" on-click="delete"></paper-icon-button>
+                       </div>
+                    </paper-item>
+                  </template>
+
+
+                </paper-listbox>
+
+
+        </div>
+          <paper-fab raised icon="mdi:note-plus" on-click="add"></paper-fab>
+    </template>
+    <script>
+    Polymer({
+        is: 'driver-documents',
+        properties:{
+          selected:{
+            type:Number,
+            value:1
+          },
+          documentsList:{
+            type:Array,
+            value:function(){
+              return [
+                {
+                  title:'Birth Certificate'
+                },{
+                  title:'Driving Licence'
+                }
+              ];
+            }
+          }
+        },
+        add:function(){
+          this.push("documentsList",{title:'testing'})
+        },
+        back:function(){
+          this.parentNode.selected='driverProfile';
+        },
+        delete:function(e){
+          this.splice('documentsList',e.model.item.index,1);
+        }
+    });
+    </script>
+</dom-module>
