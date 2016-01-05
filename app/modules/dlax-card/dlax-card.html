@@ -1,0 +1,49 @@
+<dom-module id="dlax-card">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 100%;
+      }
+      [main]{
+          @apply(--shadow-elevation-2dp);
+            width: 100%;
+      }
+     [body]::content{
+        color: var(--dlax-card-color);
+      }
+      [header]{
+          @apply(--layout-vertical);
+          @apply(--layout-center-center);
+      }
+
+
+    </style>
+
+    <div main>
+        <template is="dom-if" if="{{header}}">
+            <div header>
+                <h4><span>{{header}}</span></h4>
+            </div>
+
+        </template>
+
+            <div body>
+                <content select=".content"></content>
+            </div>
+
+        <div footer>
+            <content select=".footer"></content>
+        </div>
+
+    </div>
+
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dlax-card'
+    });
+  </script>
+</dom-module>

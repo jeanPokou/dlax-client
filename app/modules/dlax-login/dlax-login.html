@@ -1,18 +1,22 @@
+<link rel="import" href="../../elements.html">
 <dom-module id="dlax-login">
     <template>
         <style>
         :host {
-            display: block;
+            /*display: block;*/
             /*background: url('https://lh5.googleusercontent.com/-Why0w-QFK24/VMSgIzYFnSI/AAAAAAAADxI/mlrgF1Njfg8/w1312-h738/14-88.png');*/
-            width: 100%;
+            /*width: 100%;
             height: 100%;
-            @apply(--layout-vertical);
+            @apply(--layout-vertical);*/
+            /*width: 100%;
+            height: 100%;*/
+
         }
 
         [main] {
             @apply(--layout-vertical);
             @apply(--layout-center-center);
-            background: url('http://wallpaperspal.com/wp-content/uploads/Blue-Color-Scheme-Material-Design-Wallpaper.jpg');
+
         }
 
         paper-material {
@@ -58,7 +62,7 @@
         <div main>
             <paper-material elevation="3" class="login">
                 <div credentials>
-                    <paper-input class="short" label="Email" error-message="Invalid Login" autovalidate require label="email">
+                    <paper-input class="short" label="username" id='username'  label="username" autofocus value={{user.username}}>
                         <iron-icon icon="perm-identity" prefix></iron-icon>
                         <!--     <paper-icon-button suffix onclick="clearInput()" icon="clear" alt="clear" title="clear" tabindex="0">
                     </paper-icon-button> -->
@@ -70,15 +74,30 @@
                     </paper-input>
                 </div>
                 <div action>
-                    <paper-button raised id="loginButton"> Login </paper-button>
+                    <paper-button raised id="loginButton" on-click='login'> Login </paper-button>
                 </div>
             </paper-material>
         </div>
+        <iron-ajax
+            id='loginAjax'
+                method='POST'
+
+          auto
+          url="url="http://localhost:5000/login""
+          handle-as="json"
+          on-response="handleResponse"></iron-ajax>
     </template>
     <script>
     Polymer({
         is: 'dlax-login',
         properties: {
+            user:{
+                type:Object,
+                value:{
+                    'ussername':'',
+                    password:''
+                }
+            },
             animationConfig: {
                 value: function() {
                     return {
@@ -120,6 +139,12 @@
                     };
                 }
             }
+        },
+        ready:function () {
+            this.$.username.$.input.focus();
+        },
+        login:function () {
+            window.location.href='app/app.html#!/drivers';
         },
         behaviors: [Polymer.NeonSharedElementAnimatableBehavior]
     });

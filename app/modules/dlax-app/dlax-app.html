@@ -1,74 +1,6 @@
 <dom-module id="dlax-app">
+    <link rel="stylesheet" href="./dlax-app.css">
     <template>
-        <style>
-        :host {
-            display: flex;
-        }
-
-        .container {
-            display: -webkit-flex;
-        }
-
-        .flexchild {
-            display: --layout-flex-3;
-        }
-
-        .userAvatar {
-            position: relative;
-            border-radius: 50%;
-            width: 80px;
-            height: 80px;
-            top: 50%;
-            left: 35%;
-        }
-
-        paper-menu iron-icon {
-            margin-right: 33px;
-            opacity: 0.54;
-        }
-
-        .paper-menu > .iron-selected {
-            color: var(--default-primary-color);
-        }
-
-        paper-menu a {
-            text-decoration: none;
-            color: var(--menu-link-color);
-            display: -ms-flexbox;
-            display: -webkit-flex;
-            display: flex;
-            -ms-flex-direction: row;
-            -webkit-flex-direction: row;
-            flex-direction: row;
-            -ms-flex-align: center;
-            -webkit-align-items: center;
-            align-items: center;
-            font-family: 'Roboto', 'Noto', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-            font-size: 14px;
-            font-weight: 400;
-            line-height: 24px;
-            min-height: 48px;
-            padding: 0 16px;
-        }
-
-        #mainToolbar,
-        #drawerToolbar {
-            @apply(--shadow-elevation-3dp);
-        }
-
-        #mainToolbar .middle-container {
-            height: 100%;
-            margin-left: 48px;
-        }
-
-        #mainToolbar:not(.tall) .middle {
-            font-size: 18px;
-            padding-bottom: 0;
-        }
-
-        </style>
         <paper-drawer-panel id="paperDrawerPanel" force-Narrow>
             <paper-header-panel drawer>
                 <paper-toolbar id="drawerToolbar" class="tall">
@@ -105,11 +37,13 @@
                 </paper-toolbar>
 
                 <div>
-                    <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+
+                    <content select=".mainContent"></content>
+                    <!-- <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
                         <drivers-x data-route="drivers" id="drivers"></drivers-x>
                         <dla-x header="DASHBOARD" data-route="home"></dla-x>
                         <dla-x header="VEHICLES" data-route="vehicles"></dla-x>
-                    </neon-animated-pages>
+                    </neon-animated-pages> -->
                 </div>
             </paper-scroll-header-panel>
         </paper-drawer-panel>
@@ -120,7 +54,8 @@
         properties: {
             route: {
                 type: String,
-                 value: 'drivers'
+                notify:true,
+                 value: 'login'
             },
             animationConfig: {
                 value: function() {
@@ -155,12 +90,10 @@
         ready: function() {
             // //   this.selected = 1;
 
-
-
         },
         showDrivers: function() {
             this.route = 'drivers';
-            this.$.drivers.selected='driversList';
+            this.$.drivers.selected='driversDash';
             this.onDataRouteClick();
         },
 
@@ -184,29 +117,6 @@
         },
         behaviors: [Polymer.NeonSharedElementAnimatableBehavior]
 
-
-
-
-
     });
     </script>
 </dom-module>
-<!--  <paper-submenu>
-                        <a href="/drivers" class="menu-trigger" data-route="drivers">
-                            <iron-icon icon="social:people"></iron-icon>
-                            <span>Drivers</span>
-                        </a>
-
-                        <paper-menu class="menu-content">
-                            <paper-item>
-                                <a href="">
-                                    <iron-icon icon="mdi:file-document"></iron-icon> <span>Documents </span>
-                                </a>
-                            </paper-item>
-                            <paper-item>
-                                <a href="">
-                                    <iron-icon icon="mdi:file-chart"></iron-icon> <span>Logs </span>
-                                </a>
-                            </paper-item>
-                        </paper-menu>
-                    </paper-submenu> -->

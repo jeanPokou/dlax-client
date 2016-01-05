@@ -6,7 +6,6 @@
         @apply(--paper-font-body2); */
             margin-top: 50px;
             margin-right: 10px;
-            p
         }
 
         [main] {
@@ -64,13 +63,10 @@
         </style>
         <div main>
             <div content>
-
-
-                    <dash-card id="list"  header="LIST" icon="mdi:social:people"  on-click="showList"></dash-card>
+                    <dash-card id="list"  header="DRIVERS" icon="mdi:social:people"  on-click="showList"></dash-card>
                     <dash-card class="logs" header="LOGS" icon="mdi:file-chart"></dash-card>
                     <dash-card class="eobr" header="EOBR" icon="mdi:car-connected"></dash-card>
                     <dash-card class="documents" header="DOCUMENTS" icon="mdi:file-document"></dash-card>
-
 
             </div>
         </div>
@@ -93,7 +89,7 @@
         },
 
         ready:function(){
-        	this.$.list.content='2125 Active Drivers';
+        	// this.$.list.content='2125 Active Drivers';
         }
     });
     </script>
