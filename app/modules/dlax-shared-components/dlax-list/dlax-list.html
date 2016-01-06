@@ -1,0 +1,87 @@
+<dom-module id="dlax-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --dlax-card-width:50px;
+
+
+      }
+      [main]{
+          /*width:var(--dlax-list-witdth,20px);*/
+      }
+    
+    </style>
+    <div main>
+    <template is="dom-repeat" items="{{listItems}}" as="item">
+        <template is="dom-if" if="{{isCard}}">
+            <dlax-card header='hello'>
+                    <div class='content'>
+                    <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image>
+                    </div>
+                    <div class='footer'>
+                         <span class="layout vertical center center">Jules CORMIER</span>
+                        <span class="layout vertical center center">3211</span>
+                    </div>
+            </dlax-card>
+        </template>
+        <template is="dom-if" if="{{isList}}">
+            <paper-menu>
+
+              <paper-item>
+                <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar>
+                <div class="flex"></div>
+                <span>{{item.name}}</span>
+              </paper-item>
+            </paper-menu>
+
+        </template>
+
+
+
+    </template>
+    </div>
+
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dlax-list',
+       properties:{
+           view:{
+               type:String,
+               value:'list'
+           },
+           isCard:{
+                type:Boolean,
+                value:true
+           },
+           isList:{
+               type:Boolean,
+               value:false,
+               reflectToAttribute:true
+           },
+           listItems:{
+               type:Array,
+               value:[
+              {"name": "Afghanistan", "code": "AF"},
+              {"name": "Åland Islands", "code": "AX"},
+              {"name": "Albania", "code": "AL"},
+              {"name": "Algeria", "code": "DZ"},
+              {"name": "American Samoa", "code": "AS"}
+
+              ]
+
+           }
+       },
+       _setViewCard:function () {
+           this.isList=false;
+           this.isCard=!this.isCard;
+       },
+        _setViewList:function () {
+            this.isCard=false;
+            this.isList=!this.isList;
+        }
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,50 @@
+<dom-module id="dlax-drawer">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+    app-header {
+      background-color: #4285f4;
+      color: #fff;
+    }
+    app-header paper-icon-button {
+      --paper-icon-button-ink-color: white;
+    }
+    </style>
+
+    <app-drawer-layout drawer-width="288px" responsive-width="1280px" force-Narrow>
+  <div drawer>
+    <!-- drawer content -->
+    <content select=".drawer-content"></content>
+  </div>
+  <app-header-layout main>
+    <app-header  style="height: 96px;" condenses fixed>
+      <app-toolbar style="height: 64px;">
+          <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <div title>{{title}}</div>
+            <div class="flex"></div>
+            <!-- Toolbar icons -->
+            <paper-icon-button icon="search"></paper-icon-button>
+            <paper-icon-button icon="mail"></paper-icon-button>
+            <paper-icon-button icon="toc"></paper-icon-button>
+      </app-toolbar>
+    </app-header>
+
+    <!-- main content -->
+        <content select=".drawer-main-content">      
+
+
+        </content>
+
+  </app-header-layout>
+</app-drawer-layout>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dlax-drawer'
+    });
+  </script>
+</dom-module>

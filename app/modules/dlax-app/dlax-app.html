@@ -1,52 +1,49 @@
 <dom-module id="dlax-app">
     <link rel="stylesheet" href="./dlax-app.css">
     <template>
-        <paper-drawer-panel id="paperDrawerPanel" force-Narrow>
-            <paper-header-panel drawer>
+        <dlax-drawer title="Drivers Log Audit">
+            <div class="drawer-content">
                 <paper-toolbar id="drawerToolbar" class="tall">
                     <img class="userAvatar" src="http://i1379.photobucket.com/albums/ah142/pokoujeanmarc/e9ef93c2e16211718bd554f16fccb52e_zps8rqwr55w.jpeg" alt="">
                 </paper-toolbar>
-                <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
-                    <a href="/" data-route="home" on-click="onDataRouteClick">
-                        <iron-icon icon="home"></iron-icon>
-                        <span>Home</span>
-                    </a>
-                    <a href="/drivers" data-route="drivers" on-click="showDrivers">
-                        <iron-icon icon="social:people"></iron-icon>
-                        <span>Drivers</span>
-                    </a>
-                    <a href="/vehicles" data-route="vehicles" on-click="onDataRouteClick">
-                        <iron-icon icon="maps:local-shipping"></iron-icon>
-                        <span>Vehicles</span>
-                    </a>
-                </paper-menu>
-            </paper-header-panel>
-            <paper-scroll-header-panel main fixed keep-condensed-header>
-                <paper-toolbar id="mainToolbar">
-                    <paper-icon-button id="paperToggle" icon="menu" paper-drawer-toggle></paper-icon-button>
-                    <span class="flex"></span>
-                    <!-- Toolbar icons -->
-                    <paper-icon-button icon="search"></paper-icon-button>
-                    <paper-icon-button icon="mail"></paper-icon-button>
-                    <paper-icon-button icon="toc"></paper-icon-button>
-                    <paper-icon-button icon="settings" on-click="showSettings"></paper-icon-button>
-                    <!-- Application name -->
-                    <div class="middle middle-container center horizontal layout">
-                        <div class="app-name">DLAX</div>
-                    </div>
-                </paper-toolbar>
-
-                <div>
-
-                    <content select=".mainContent"></content>
-                    <!-- <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
-                        <drivers-x data-route="drivers" id="drivers"></drivers-x>
-                        <dla-x header="DASHBOARD" data-route="home"></dla-x>
-                        <dla-x header="VEHICLES" data-route="vehicles"></dla-x>
-                    </neon-animated-pages> -->
+             <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+                        <a href="/" data-route="home" >
+                            <iron-icon icon="home"></iron-icon>
+                            <span>Home</span>
+                        </a>
+                        <a href="/drivers" data-route="drivers" on-click="showDrivers">
+                            <iron-icon icon="social:people"></iron-icon>
+                            <span>Drivers</span>
+                        </a>
+                        <a href="/vehicles" data-route="vehicles" >
+                            <iron-icon icon="maps:local-shipping"></iron-icon>
+                            <span>Vehicles</span>
+                        </a>
+                    </paper-menu>
                 </div>
-            </paper-scroll-header-panel>
-        </paper-drawer-panel>
+                    <!-- <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+                            <drivers-x data-route="drivers" id="drivers"></drivers-x>
+                            <dla-x header="DASHBOARD" data-route="home"></dla-x>
+                            <dla-x header="VEHICLES" data-route="vehicles"></dla-x>
+                        </neon-animated-pages> -->
+            <div class='drawer-main-content'>
+                <neon-animated-pages class="flex" attr-for-selected="data-route" selected="{{route}}" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
+                    <neon-animatable  data-route="home">
+                        <p> Home </p>
+                    </neon-animatable>
+                    <neon-animatable data-route="drivers" >
+                            <drivers-x id='drivers' ></drivers-x>
+                    </neon-animatable>
+                        <neon-animatable data-route="vehicles">
+                            <vehicles-x></vehicles-x>
+                        </neon-animatable>
+                    </neon-animated-pages>
+
+
+            <div>
+        </dlax-drawer>
+
+        <dlax-router route="{{route}}"></dlax-router>
     </template>
     <script>
     Polymer({
@@ -55,7 +52,8 @@
             route: {
                 type: String,
                 notify:true,
-                 value: 'login'
+                // value:'drivers',
+                observer:'_routeChanged'
             },
             animationConfig: {
                 value: function() {
@@ -94,15 +92,12 @@
         showDrivers: function() {
             this.route = 'drivers';
             this.$.drivers.selected='driversDash';
-            this.onDataRouteClick();
+
         },
 
 
-        onDataRouteClick: function() {
-            var drawerPanel = this.$.paperDrawerPanel;
-            if (drawerPanel.narrow) {
-                drawerPanel.closeDrawer();
-            }
+        _routeChanged: function(newRoute, oldRoute) {
+            console.log('new route is :'+ newRoute);
         },
 
 

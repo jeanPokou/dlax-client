@@ -2,13 +2,13 @@
     display: flex;
 }
 
-.container {
+/*.container {
     display: -webkit-flex;
 }
 
 .flexchild {
     display: --layout-flex-3;
-}
+}*/
 
 .userAvatar {
     position: relative;
@@ -26,6 +26,9 @@ paper-menu iron-icon {
 
 .paper-menu > .iron-selected {
     color: var(--default-primary-color);
+}
+.drawer-main-content{
+    height: 800px;
 }
 
 paper-menu a {

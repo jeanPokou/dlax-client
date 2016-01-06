@@ -88,9 +88,6 @@
                         Hello
                 </div> -->
 
-
-
-
         <neon-animated-pages id="t" class="flex" attr-for-selected="data-route" selected="{{selected}}" id="drivers-pages" entry-animation="slide-from-right-animation" exit-animation="slide-left-animation">
             <drivers-dash data-route="driversDash" ></drivers-dash>
             <drivers-list id="driversList" data-route='driversList' drivers-data="{{driversData}}" selected-index={{selectedDriverIndex}}></drivers-list>
@@ -166,7 +163,7 @@
         },
 
         ready: function() {
-            //  this.selected = 0;
+      this.route= 'drivers';
             // this.$.selectedDriver = [];
             // page('/driversList',  function() {
             //    this.selected = 'driversList';

@@ -21,9 +21,9 @@ window.addEventListener('WebComponentsReady', function() {
 
     // // Routes
     page('/', function() {
-             dlaxApp.route = 'drivers';
+             dlaxApp.route = 'home';
     });
-
+    //
     page('/drivers', function() {
          dlaxApp.route = 'drivers';
 
@@ -34,9 +34,9 @@ window.addEventListener('WebComponentsReady', function() {
     //     app.params = data.params;
     // });
     //
-    // page('/vehicles', app.scrollToTop, function() {
-    //     app.route = 'vehicles';
-    // });
+    page('/vehicles', function() {
+        dlaxApp.route = 'vehicles';
+    });
 
     // add #! before urls
     page({

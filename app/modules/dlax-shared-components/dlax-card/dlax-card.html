@@ -1,17 +1,23 @@
 <dom-module id="dlax-card">
   <template>
-    <style>
+    <style >
       :host {
         display: inline-block;
         box-sizing: border-box;
-        width: 100%;
+
+
       }
       [main]{
           @apply(--shadow-elevation-2dp);
-            width: 100%;
+
+
+
       }
-     [body]::content{
-        color: var(--dlax-card-color);
+     [body]  ::content{
+        color:red;
+        width: 200px;
+       border:1px solid blue;
+        height: 150px;
       }
       [header]{
           @apply(--layout-vertical);

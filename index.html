@@ -9,33 +9,46 @@
     <title>Driver Log Audit X</title>
     <script src="app/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="app/modules/dlax-login/dlax-login.html">
-    <link rel="import" href="app/modules/dlax-card/dlax-card.html">
-    <link rel="import" href="app/bower_components/iron-image/iron-image.html">
-    <link rel="import" href="app/elements.html">
-    <style media="screen">
-        body{
-                background:#2196F3;
 
-        }
-        /*.test{
-            width: 250px;
-            --dlax-card-color:red;
-        }
-     iron-image {
+    <link rel="import" href="app/bower_components/iron-image/iron-image.html">
+    <link rel="import" href="app/modules/dlax-drawer/dlax-drawer.html">
+    <link rel="import" href="app/elements.html">
+    <style is="custom-style">
+    /*iron-image {
             width:100%;
             height:200px;
         }*/
+
+        :root{
+        --dlax-avatar-width:50px;
+        --dlax-avatar-height:50px;
+        --dlax-card-width:50px;
+
+        }
+/*.content{
+    color:red;
+}*/
 
 
     </style>
 </head>
 <body>
 
+<!-- <dlax-list ></dlax-list> -->
 
-    <!-- <div class="test">
+    <!-- <dlax-app> </dlax-app> -->
+
+    <!-- <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar> -->
+
+
+
         <dlax-card header="hello">
-            <div class='content'>
-            <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image>
+            <div class="content">
+            <!-- <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image> -->
+
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
             </div>
             <div class='footer'>
                  <span class="layout vertical center center">Jules CORMIER</span>
@@ -43,21 +56,10 @@
             </div>
         </dlax-card>
 
-    </div>
 
-<br>
-<br>
 
-        <div class="test">
-            <dlax-card>
-                <div class='content'>
-                <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image>
-                </div>
-            </dlax-card>
 
-        </div> -->
-
-    <dlax-login class="html"></dlax-login>
+    <!-- <dlax-login class="html"></dlax-login> -->
 
 </body>
 </html>

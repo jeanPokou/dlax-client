@@ -33,12 +33,11 @@
         </style>
         <div main>
             <!-- <img src="{{data.avatar}}" alt=""> -->
-            <iron-image   class="avatar" placeholder="avatar.jpg"
+            <iron-image   class="avatar" placeholder="app/avatar.jpg"
 sizing="cover" preload src="[[cardData.avatar]]"></iron-image>
             <div info>
-                <span class="name">{{cardData.firstName}}</span>
                 <span>{{cardData.driverId}}</span>
-                <!-- <span>{{data.Group}}</span> -->
+                <span class="name">{{cardData.firstName}} {{cardData.lName}}</span>
             </div>
         </div>
     </template>

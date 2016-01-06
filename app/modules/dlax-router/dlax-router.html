@@ -1,0 +1,37 @@
+<script type="text/javascript" src="../../bower_components/page/page.js"></script>
+<dom-module id="dlax-router">
+  <template>
+  </template>
+  <script>
+   'use strict';
+  (function() {
+          Polymer({
+            is: 'dlax-router',
+            properties:{
+            route:{
+                type:String,
+                value:'home',
+                notify:true,
+                reflectToAttribute:true,
+                observer:'_routeChanged'
+            }
+        },
+            ready: function(){
+                console.log('coming from router'+ this.route );
+
+            },
+            _routeChanged:function (newRoute,oldRoute) {
+                console.log('coming from router -> ' + newRoute);
+                // var xhr= new XMLHttpRequest();
+                // xhr.open('GET',"../" + newRoute + "/" + newRoute + ".html");
+                //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                // xhr.onerror=function () {
+                //     console.log('success!');
+                // }
+            }
+
+          });
+  }());
+
+  </script>
+</dom-module>

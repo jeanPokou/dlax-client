@@ -1,0 +1,50 @@
+<dom-module id="dlax-avatar">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+
+      }
+      .content iron-image {
+          width:var(--dlax-avatar-width,150px);
+          height: var(--dlax-avatar-height,150px);
+      }
+      .round{
+              width: 90px;
+              height: 90px;
+              border-radius: 50%;
+              margin-bottom: 10px;
+      }
+    </style>
+
+        <dlax-card>
+            <div class="content avatar">
+                        <iron-image class$="{{_roundIt(rounded)}}"  placeholder="[[avatarImage]]"
+            sizing="cover" preload src="{{avatarImage}}"></iron-image>
+            </div>
+        </dlax-card>
+
+  </template>
+  <script>
+    Polymer({
+      is: 'dlax-avatar',
+      properties:{
+          avatarImage:{
+              type:String,
+              value:'avatar.jpg'
+          },
+          rounded:{
+              type:Boolean,
+              value:false
+
+          }
+      },
+      _roundIt:function (rounded) {
+          return this.rounded==true ? 'round' :'';
+      }
+
+
+
+    });
+  </script>
+</dom-module>
