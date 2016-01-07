@@ -3,7 +3,8 @@
     <template>
         <style>
         :host {
-            /*  @apply(--layout-vertical);
+            /*display: block;*/
+              /*@apply(--layout-vertical);
             @apply(--paper-font-body2);
             margin-top: 51px;
             margin-right: 15px;
@@ -12,6 +13,7 @@
             --paper-input-container-focus-color: var(--default-primary-color);
             height: auto;
             display: flex;
+            /*margin-bottom: 20px;*/
         }
 
         [main] {
@@ -22,6 +24,7 @@
             margin: 5px;
             @apply(--shadow-elevation-3dp);
             background: var(--paper-grey-100);
+
         }
 
         paper-toolbar {
@@ -184,8 +187,8 @@
                             <a name="{{drivers.firstLetter}}"></a><span>{{drivers.firstLetter}}</span></div> -->
 
                             <div class="letter" hidden$="{{_compute(sortApha) }}">
-                                <a name="{{arrayItem(drivers.*,index,'firstLetter')}}"></a><span>{{drivers.firstLetter}}</span></div>
-
+                                <!-- <a name="{{arrayItem(drivers.*,index,'firstLetter')}}"></a><span>{{drivers.firstLetter}}</span></div> -->
+                                <a name="{{drivers.firstLetter}}"></a><span>{{drivers.firstLetter}}</span></div>
 
                         <template is="dom-repeat" items="{{drivers.drivers}}" as="item"  id="driversList">
 

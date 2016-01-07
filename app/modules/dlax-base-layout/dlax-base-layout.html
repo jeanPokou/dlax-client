@@ -1,0 +1,153 @@
+<dom-module id="dlax-base-layout">
+    <template>
+        <style is="custon-style">
+        :host {
+            @apply(--layout-vertical);
+            box-sizing: border-box;
+            @apply(--layout-center-center);
+            --paper-badge-background: #D32F2F;
+            --paper-badge-width: 42px;
+            --paper-badge-height: 42px;
+            position: relative;
+                --paper-fab-background: var(--paper-blue-600);
+      height: calc(80% - 10px);
+      top: 10px;
+      margin-bottom: 10px;
+        }
+
+
+        [main] {
+            @apply(--layout-vertical);
+            @apply(--shadow-elevation-3dp);
+            background: var(--paper-grey-100);
+            height: auto;
+            width: calc(80% - 16px);
+            padding-bottom: 15px;
+        }
+
+        paper-toolbar {
+            background: var(--dark-primary-color);
+        }
+
+     paper-input,paper-dropdown-menu {
+        width: 100%;
+      }
+
+      paper-dropdown-menu paper-menu-button {
+        width: 100%;
+        padding: 0;
+      }
+
+        .missingsLog {
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            background-color: var(--paper-grey-300);
+            font-size: 0.9em;
+        }
+        .camera {
+          margin-top: 25px;
+        }
+
+        [vcard]::content {
+            height: auto;
+            @apply(--layout-horizontal);
+            @apply(--layout-wrap);
+            /*
+            width: 35%;*/
+            /* border: 1px solid orange;*/
+            background-color: var(--default-primary-color);
+        }
+
+        [info]::content {
+            @apply(--layout-horizontal);
+            @apply(--layout-flex-3);
+            @apply(--layout-center-center);
+            /*   border: 1px solid green;*/
+            height: 180px;
+            color: black;
+            background-color:var(--paper-grey-300);
+        }
+
+
+
+        paper-icon-item {
+            margin: 5px;
+        }
+
+        iron-icon {
+            margin-right: 3px;
+        }
+
+        [dash]::content {
+            @apply(--layout-horizontal);
+            @apply(--layout-flex-2);
+            @apply(--layout-center-center);
+            height: 180px;
+
+        }
+
+        [details] {
+            @apply(--layout-horizontal);
+            @apply(--layout-center-center);
+        }
+
+        @media(max-width: 601px) {
+            [main] {
+                width: calc(95.33% - 2px);
+            }
+            [vcard] {
+                height:100%;
+                @apply(--layout-vertical);
+                @apply(--layout-wrap);
+            }
+            [details] {
+                @apply(--layout-vertical);
+                @apply(--layout-center-center);
+            }
+        }
+
+        @media(min-width: 601px) {
+            [main] {
+                width: calc(90.33% - 16px);
+            }
+        }
+
+
+        </style>
+
+        <div main layout vertical >
+            <paper-toolbar>
+                <paper-icon-button icon="arrow-back" on-click="back"></paper-icon-button>
+                <span class="flex"></span>
+                <content select=".toolbarIcons"></content>
+
+            </paper-toolbar>
+
+
+            <div vcard>
+                <div dash>
+                    <content select=".dash"></content>
+                </div>
+                <div info>
+                    <content select=".info"></content>
+
+                </div>
+
+
+            </div>
+            <div details>
+            <content select=".main-content"></content>
+            </div>
+
+            </div>
+
+    </template>
+
+    <script>
+    Polymer({
+        is: 'dlax-base-layout'
+
+    });
+    </script>
+</dom-module>

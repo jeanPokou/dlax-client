@@ -19,42 +19,59 @@
             height:200px;
         }*/
 
+
         :root{
-        --dlax-avatar-width:50px;
-        --dlax-avatar-height:50px;
-        --dlax-card-width:50px;
-
+        --dlax-avatar-width:150px;
+        --dlax-avatar-height:150px;
         }
-/*.content{
-    color:red;
-}*/
-
+        .test{
+            width: 150px;
+            height: 150px;
+        }
+        paper-material{
+            width: 150px;
+            height: 150px;
+        }
 
     </style>
 </head>
 <body>
 
-<!-- <dlax-list ></dlax-list> -->
+<!-- <dlax-list attr-for-header='name'>
+
+</dlax-list> -->
 
     <!-- <dlax-app> </dlax-app> -->
+    <dlax-base-layout>
+        <div class="toolbarIcons">
+            <paper-icon-button icon="mdi:chart-bar"></paper-icon-button>
+            <paper-icon-button icon="mdi:file-document"></paper-icon-button>
+            <!-- <paper-icon-button icon="more-vert"></paper-icon-button> -->
+        </div>
+        <div class="dash">
+        <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar>
+        </div>
+        <div class="info">
+    
+        </div>
+        <div class="main-content">
+            <dlax-card></dlax-card>
+        </div>
+
+    </dlax-base-layout>
 
     <!-- <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar> -->
 
 
 
-        <dlax-card header="hello">
-            <div class="content">
-            <!-- <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image> -->
+<!--
+    <dlax-card>
+    </dlax-card> -->
 
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-            </div>
-            <div class='footer'>
-                 <span class="layout vertical center center">Jules CORMIER</span>
-                <span class="layout vertical center center">3211</span>
-            </div>
-        </dlax-card>
+
+
+
 
 
 

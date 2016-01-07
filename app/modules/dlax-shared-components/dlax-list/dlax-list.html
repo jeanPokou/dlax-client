@@ -3,19 +3,28 @@
     <style>
       :host {
         display: block;
-        --dlax-card-width:50px;
-
-
+        --dlax-card-width:200px;
+        --dlax-card-height:200px;
+        --dlax-avatar-width:50px;
       }
       [main]{
           /*width:var(--dlax-list-witdth,20px);*/
       }
-    
+       .list {
+      @apply(--layout-vertical);
+      padding-top: 12px;
+      background-color: white;
+      width: 240px;
+      height: 228px;
+      margin: 12px;
+      @apply(--shadow-elevation-2dp);
+    }
+
     </style>
     <div main>
-    <template is="dom-repeat" items="{{listItems}}" as="item">
+    <template is="dom-repeat" items="{{items}}" as="item" id='loop'>
         <template is="dom-if" if="{{isCard}}">
-            <dlax-card header='hello'>
+            <dlax-card header='{{item.name}}'>
                     <div class='content'>
                     <iron-image src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png" preload sizing="cover"></iron-image>
                     </div>
@@ -26,14 +35,20 @@
             </dlax-card>
         </template>
         <template is="dom-if" if="{{isList}}">
-            <paper-menu>
 
-              <paper-item>
-                <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar>
-                <div class="flex"></div>
-                <span>{{item.name}}</span>
-              </paper-item>
-            </paper-menu>
+        <paper-icon-item>{{item.name}}</paper-icon-item>
+
+            <!-- <paper-icon-item>
+            <dlax-avatar rounded avatar-image="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png"></dlax-avatar>
+          <paper-item-body two-line>
+            <div>Photos</div>
+            <div secondary>Jan 9, 2014</div>
+          </paper-item-body>
+          <paper-icon-button icon="star" alt="favourite this!"></paper-icon-button>
+        </paper-icon-item> -->
+
+
+
 
         </template>
 
@@ -48,9 +63,13 @@
     Polymer({
       is: 'dlax-list',
        properties:{
-           view:{
+           header:{
                type:String,
-               value:'list'
+               value:''
+           },
+           attrForHeader:{
+               type:String
+
            },
            isCard:{
                 type:Boolean,
@@ -61,7 +80,7 @@
                value:false,
                reflectToAttribute:true
            },
-           listItems:{
+           items:{
                type:Array,
                value:[
               {"name": "Afghanistan", "code": "AF"},
@@ -81,7 +100,19 @@
         _setViewList:function () {
             this.isCard=false;
             this.isList=!this.isList;
+        },
+        _setHeader:function () {
+            if(this.attrForHeader){
+                //return 'item'+ this.attrForHeader;
+                console.log(this.$.loop.items['attrForHeader'])
+
+            }
+        },
+        ready:function () {
+            this._setHeader();
         }
+
+
     });
   </script>
 </dom-module>

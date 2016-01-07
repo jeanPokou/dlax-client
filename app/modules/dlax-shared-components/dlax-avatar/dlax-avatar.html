@@ -6,8 +6,13 @@
 
       }
       .content iron-image {
-          width:var(--dlax-avatar-width,150px);
-          height: var(--dlax-avatar-height,150px);
+          width:var(--dlax-avatar-width,50px);
+          height: var(--dlax-avatar-height,50px);
+
+      }
+
+      .elevated{
+          @apply(--shadow-elevation-5dp)
       }
       .round{
               width: 90px;
@@ -17,12 +22,12 @@
       }
     </style>
 
-        <dlax-card>
-            <div class="content avatar">
-                        <iron-image class$="{{_roundIt(rounded)}}"  placeholder="[[avatarImage]]"
+
+            <div class="content avatar ">
+                        <iron-image class$="{{_roundIt(rounded)}} "  placeholder="[[avatarImage]]"
             sizing="cover" preload src="{{avatarImage}}"></iron-image>
             </div>
-        </dlax-card>
+
 
   </template>
   <script>

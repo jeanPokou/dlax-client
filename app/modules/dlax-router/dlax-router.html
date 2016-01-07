@@ -1,6 +1,11 @@
 <script type="text/javascript" src="../../bower_components/page/page.js"></script>
 <dom-module id="dlax-router">
   <template>
+      <iron-ajax
+        id="ajax"
+        url=""
+        handle-as="document"
+        ></iron-ajax>
   </template>
   <script>
    'use strict';
@@ -11,23 +16,44 @@
             route:{
                 type:String,
                 value:'home',
-                notify:true,
+                // notify:true,
                 reflectToAttribute:true,
                 observer:'_routeChanged'
+            },
+            rootId:{
+                type:String
+
             }
+
         },
             ready: function(){
                 console.log('coming from router'+ this.route );
+                this.$.ajax.addEventListener('response', function(response) {
+                    try {
+                        this.async(function () {
+                              console.log(response.detail.response);
+                              var id='#' + this.rootId;
+                              var root = window.document.querySelector('id');
+                              if(root){
+                                  var div = document.createElement('div');
+                                  div.innerHTML=response.detail.response;
+                                  root.appendChild(div);
+                                  console.log(root);
+                              }
+                        });
+
+                    } catch (e) {
+
+                    }
+
+                });
 
             },
             _routeChanged:function (newRoute,oldRoute) {
                 console.log('coming from router -> ' + newRoute);
-                // var xhr= new XMLHttpRequest();
-                // xhr.open('GET',"../" + newRoute + "/" + newRoute + ".html");
-                //     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                // xhr.onerror=function () {
-                //     console.log('success!');
-                // }
+                 this.$.ajax.url="../app/modules/" + newRoute + "/" + newRoute + ".html";
+                 this.$.ajax.generateRequest();
+
             }
 
           });

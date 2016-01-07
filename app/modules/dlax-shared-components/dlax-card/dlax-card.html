@@ -4,27 +4,32 @@
       :host {
         display: inline-block;
         box-sizing: border-box;
-
-
       }
       [main]{
           @apply(--shadow-elevation-2dp);
-
-
-
+          width: var(--dlax-card-width,300px);
+          height:  var(--dlax-card-height,300px);
       }
      [body]  ::content{
-        color:red;
-        width: 200px;
-       border:1px solid blue;
-        height: 150px;
+         @apply(--layout-vertical);
+         @apply(--layout-center-center);
+       /*border:1px solid blue;*/
+       height: 70%;
+       width: 100%;
+
       }
       [header]{
           @apply(--layout-vertical);
           @apply(--layout-center-center);
+            height: 10%;
+            padding: 1px;
+            border-bottom: 1px solid #ccc;
       }
-
-
+      [footer] ::content{
+          height:20%;
+           @apply(--layout-vertical);
+           @apply(--layout-center-center);
+          }
     </style>
 
     <div main>
